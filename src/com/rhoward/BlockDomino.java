@@ -15,16 +15,16 @@ public class BlockDomino extends Domino{
         blocks[0].setY(this.y);
 
         // top-right block
-        blocks[1].setX(this.x + BLOCK_WIDTH);
+        blocks[1].setX(this.x + BLOCK_WIDTH + 1);
         blocks[1].setY(this.y);
 
         // bottom-right block
-        blocks[2].setX(this.x + BLOCK_WIDTH);
-        blocks[2].setY(this.y + BLOCK_HEIGHT);
+        blocks[2].setX(this.x + BLOCK_WIDTH + 1);
+        blocks[2].setY(this.y + BLOCK_HEIGHT + 1);
 
         // bottom-left block
         blocks[3].setX(this.x);
-        blocks[3].setY(this.y + BLOCK_HEIGHT);
+        blocks[3].setY(this.y + BLOCK_HEIGHT + 1);
     }
 
     public float getHeight() {
