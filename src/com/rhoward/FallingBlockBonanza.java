@@ -24,7 +24,8 @@ public class FallingBlockBonanza {
     private boolean isRunning = true;
 
     // entities
-    List<Block> blocks = new ArrayList<Block>(16);
+    private List<Block> blocks;
+    private Gravity gravity;
 
     public FallingBlockBonanza() {
         initDisplay();
@@ -47,13 +48,17 @@ public class FallingBlockBonanza {
         Display.destroy();
     }
 
-
-
     private void logic(int delta) {
+        this.gravity.stepGravity(delta);
 
+        for (Block block : blocks) {
+            block.update(delta);
+        }
     }
 
     private void render() {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
         for (Block block : blocks) {
             block.draw();
         }
@@ -78,7 +83,8 @@ public class FallingBlockBonanza {
     }
 
     private void initWorld() {
-
+        blocks = new ArrayList<Block>(16);
+        gravity = new Gravity(this.blocks);
     }
 
     private void initEntities() {
