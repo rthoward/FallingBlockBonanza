@@ -6,6 +6,9 @@ import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FallingBlockBonanza {
 
     // window attributes
@@ -19,6 +22,9 @@ public class FallingBlockBonanza {
     private long lastFrame;
 
     private boolean isRunning = true;
+
+    // entities
+    List<Block> blocks = new ArrayList<Block>(16);
 
     public FallingBlockBonanza() {
         initDisplay();
@@ -48,7 +54,9 @@ public class FallingBlockBonanza {
     }
 
     private void render() {
-
+        for (Block block : blocks) {
+            block.draw();
+        }
     }
 
     private void input(int delta) {
@@ -74,7 +82,7 @@ public class FallingBlockBonanza {
     }
 
     private void initEntities() {
-
+        this.blocks.add(new Block(Block.BlockType.BLUE, 100, 100));
     }
 
     private void initOpenGL() {
