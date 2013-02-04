@@ -8,17 +8,29 @@ public class Block {
         RED, GREEN, BLUE, YELLOW;
     }
 
+    private final float BLOCK_HEIGHT = 32;
+    private final float BLOCK_WIDTH = 32;
+
     private float x, y;
     private BlockType type;
+    private float termVelocityY = 10.0f;
+
+    // temp
+    private float velocityX;
+    private float velocityY;
 
     public Block(BlockType type, float x, float y) {
         this.type = type;
         this.x = x;
         this.y = y;
+        this.velocityX = 0;
+        this.velocityY = 0;
     }
 
-    private final float BLOCK_HEIGHT = 32;
-    private final float BLOCK_WIDTH = 32;
+    public void update(int delta) {
+        this.x += ((float)delta / 100) * this.velocityX;
+        this.y += ((float)delta / 100) * this.velocityY;
+    }
 
     public void draw() {
         switch (type) {
@@ -43,4 +55,19 @@ public class Block {
         glEnd();
     }
 
+    public void setVelocityX(float velocityX) {
+        this.velocityX = velocityX;
+    }
+
+    public void setVelocityY(float velocityY) {
+        this.velocityY = velocityY;
+    }
+
+    public void modVelocityX(float velocityX) {
+        this.velocityX += velocityX;
+    }
+
+    public void modVelocityY(float velocityY) {
+        this.velocityY += velocityY;
+    }
 }
