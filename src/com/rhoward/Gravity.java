@@ -6,15 +6,15 @@ import java.util.List;
 public class Gravity {
 
     private final float GRAV_SPEED = 10.0f;
-    private List<BlockDomino> blockList = null;
+    private List<Domino> dominoList = null;
 
-    public Gravity(List<BlockDomino> blockList) {
-        this.blockList = blockList;
+    public Gravity(List<Domino> blockList) {
+        this.dominoList = blockList;
     }
 
     public void stepGravity(int delta) {
-        for (BlockDomino block : blockList) {
-            block.modVelocityY( ((float)delta / 100) * GRAV_SPEED );
+        for (Domino domino : dominoList) {
+            domino.modVelocityY( ((float)delta / 100) * GRAV_SPEED );
         }
     }
 }
