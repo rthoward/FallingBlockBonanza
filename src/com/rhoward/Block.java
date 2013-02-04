@@ -11,8 +11,10 @@ public class Block {
     private float x, y;
     private BlockType type;
 
-    public Block(BlockType type) {
+    public Block(BlockType type, float x, float y) {
         this.type = type;
+        this.x = x;
+        this.y = y;
     }
 
     private final float BLOCK_HEIGHT = 32;
