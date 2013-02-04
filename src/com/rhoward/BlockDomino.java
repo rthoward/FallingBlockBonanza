@@ -4,16 +4,6 @@ import static com.rhoward.Block.BlockType;
 
 public class BlockDomino extends Domino{
 
-    private final int NUM_BLOCKS = 4;
-    private Block[] blocks = new Block[NUM_BLOCKS];
-    BlockType type;
-
-    private final float BLOCK_WIDTH = Block.getBLOCK_WIDTH();
-    private final float BLOCK_HEIGHT = Block.getBLOCK_HEIGHT();
-
-    private float x, y;
-    private float velocityX, velocityY;
-
     public BlockDomino(BlockType type, float x, float y) {
         super(type, 4, x, y);
     }

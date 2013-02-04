@@ -8,16 +8,18 @@ public abstract class Domino {
     protected BlockType type;
     protected int numBlocks;
     protected float x, y;
-    protected int velocityX, velocityY;
+    protected float velocityX, velocityY;
 
-    private final float BLOCK_WIDTH = Block.getBLOCK_WIDTH();
-    private final float BLOCK_HEIGHT = Block.getBLOCK_HEIGHT();
+    protected final float BLOCK_WIDTH = Block.getBLOCK_WIDTH();
+    protected final float BLOCK_HEIGHT = Block.getBLOCK_HEIGHT();
 
     public Domino(BlockType type, int numBlocks, float x, float y) {
         this.type = type;
         this.numBlocks = numBlocks;
         this.x = x;
         this.y = y;
+        this.velocityX = 0;
+        this.velocityY = 0;
 
         blocks = new Block[this.numBlocks];
 
@@ -28,10 +30,10 @@ public abstract class Domino {
     }
 
     public void update(int delta) {
-        for (int i = 0; i < numBlocks; i++) {
-            blocks[i].setX( ((float)delta / 100) * this.velocityX);
-            blocks[i].setY( ((float)delta / 100) * this.velocityY);
-        }
+        this.x += ((float) delta / 100) * this.velocityX;
+        this.y += ((float) delta / 100) * this.velocityY;
+
+        calculateBlockPositions();
     }
 
     public void draw() {
