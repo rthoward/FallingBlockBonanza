@@ -8,8 +8,8 @@ public class Block {
         RED, GREEN, BLUE, YELLOW;
     }
 
-    private final float BLOCK_HEIGHT = 32;
-    private final float BLOCK_WIDTH = 32;
+    private static final float BLOCK_HEIGHT = 32;
+    private static final float BLOCK_WIDTH = 32;
 
     private float x, y;
     private BlockType type;
@@ -69,5 +69,21 @@ public class Block {
 
     public void modVelocityY(float velocityY) {
         this.velocityY += velocityY;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    public static float getBLOCK_HEIGHT() {
+        return BLOCK_HEIGHT;
+    }
+
+    public static float getBLOCK_WIDTH() {
+        return BLOCK_WIDTH;
     }
 }

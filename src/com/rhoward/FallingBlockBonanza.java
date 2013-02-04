@@ -25,6 +25,7 @@ public class FallingBlockBonanza {
 
     // entities
     private List<Block> blocks;
+    private List<BlockDomino> blockDominos = new ArrayList<BlockDomino>(16);
     private Gravity gravity;
 
     public FallingBlockBonanza() {
@@ -51,16 +52,16 @@ public class FallingBlockBonanza {
     private void logic(int delta) {
         this.gravity.stepGravity(delta);
 
-        for (Block block : blocks) {
-            block.update(delta);
+        for (BlockDomino domino : blockDominos) {
+            domino.update(delta);
         }
     }
 
     private void render() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        for (Block block : blocks) {
-            block.draw();
+        for (BlockDomino domino : blockDominos) {
+            domino.draw();
         }
     }
 
@@ -83,12 +84,11 @@ public class FallingBlockBonanza {
     }
 
     private void initWorld() {
-        blocks = new ArrayList<Block>(16);
-        gravity = new Gravity(this.blocks);
+        gravity = new Gravity(blockDominos);
     }
 
     private void initEntities() {
-        this.blocks.add(new Block(Block.BlockType.BLUE, 100, 100));
+        this.blockDominos.add(new BlockDomino(Block.BlockType.BLUE, 100, 100));
     }
 
     private void initOpenGL() {
