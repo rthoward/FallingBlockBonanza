@@ -4,14 +4,41 @@ import static com.rhoward.Block.BlockType;
 
 public abstract class Domino {
 
-    protected final float BLOCK_WIDTH = Block.getBLOCK_WIDTH();
-    protected final float BLOCK_HEIGHT = Block.getBLOCK_HEIGHT();
+    public enum RotateState {
+        NORMAL, LEFT, RIGHT, DOWN;
+    }
+
+    protected RotateState rotateState;
+    protected int x, y;
 
     BlockType type;
 
-    public Domino(BlockType type) {
+    public Domino(BlockType type, int x, int y) {
         this.type = type;
+        this.rotateState = RotateState.NORMAL;
+        this.x = x;
+        this.y = y;
     }
 
-    public abstract int[] getGrid();
+    public int getX() {
+        return this.x;
+    }
+
+    public int getY() {
+        return this.y;
+    }
+
+    public BlockType getType() {
+        return type;
+    }
+
+    public abstract String getGrid();
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
 }

@@ -14,7 +14,6 @@ public class Gravity {
 
     public void stepGravity(int delta) {
         for (Domino domino : dominoList) {
-            domino.modVelocityY( ((float)delta / 100) * GRAV_SPEED );
         }
     }
 }
