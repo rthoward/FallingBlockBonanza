@@ -4,86 +4,78 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Block {
 
-    public enum BlockType {
-        RED, GREEN, BLUE, YELLOW;
-    }
-
-    private static final float BLOCK_HEIGHT = 32;
-    private static final float BLOCK_WIDTH = 32;
-
-    private float x, y;
+    private static final float BLOCK_SIZE = 16;
+    private static final float BLOCK_BORDER = 2.0f;
+    private final float COLOR_SIZE = BLOCK_SIZE - BLOCK_BORDER;
     private BlockType type;
-    private float termVelocityY = 10.0f;
+    private FallingState fallingState;
 
-    // temp
-    private float velocityX;
-    private float velocityY;
-
-    public Block(BlockType type, float x, float y) {
+    public Block(BlockType type) {
         this.type = type;
-        this.x = x;
-        this.y = y;
-        this.velocityX = 0;
-        this.velocityY = 0;
     }
 
-    public void update(int delta) {
-        this.x += ((float)delta / 100) * this.velocityX;
-        this.y += ((float)delta / 100) * this.velocityY;
+    public static float getBlockSize() {
+        return BLOCK_SIZE;
     }
 
-    public void draw() {
-        switch (type) {
-            case RED:
-                glColor3f(1.0f, 0.0f, 0.0f);
-            break;
-            case GREEN:
-                glColor3f(0.0f, 1.0f, 0.0f);
-            break;
+    public static float getBlockBorder() {
+        return BLOCK_BORDER;
+    }
+
+    public void draw(float x, float y) {
+        float red, green, blue;
+        red = green = blue = 0.0f;
+
+        switch (this.type) {
+            case EMPTY:
+                // grey
+                red = 224.0f; green = 224.0f; blue = 224.0f;
+                break;
             case BLUE:
-                glColor3f(0.0f, 0.0f, 1.0f);
-            break;
+                red = 0.0f; green = 128.0f; blue = 255.0f;
+                break;
+            case GREEN:
+                red = 0.0f; green = 255.0f; blue = 128.0f;
+                break;
+            case RED:
+                red = 255.0f; green = 51.0f; blue = 51.0f;
+                break;
             case YELLOW:
-                glColor3f(0.0f, 0.5f, 0.5f);
-            break;
+                red = 255.0f; green = 255.0f; blue = 102.0f;
+                break;
         }
+
+        glColor3f(red / 255.0f, green / 255.0f, blue / 255.0f);
+
         glBegin(GL_QUADS);
-            glVertex2f(x, y);
-            glVertex2f(x + BLOCK_WIDTH, y);
-            glVertex2f(x + BLOCK_WIDTH, y + BLOCK_HEIGHT);
-            glVertex2f(x, y + BLOCK_HEIGHT);
+        glVertex2f(x, y);
+        glVertex2f(x + COLOR_SIZE, y);
+        glVertex2f(x + COLOR_SIZE, y + COLOR_SIZE);
+        glVertex2f(x, y + COLOR_SIZE);
         glEnd();
     }
 
-    public void setVelocityX(float velocityX) {
-        this.velocityX = velocityX;
+    public BlockType getType() {
+        return type;
     }
 
-    public void setVelocityY(float velocityY) {
-        this.velocityY = velocityY;
+    public void setType(BlockType type) {
+        this.type = type;
     }
 
-    public void modVelocityX(float velocityX) {
-        this.velocityX += velocityX;
+    public FallingState getFallingState() {
+        return fallingState;
     }
 
-    public void modVelocityY(float velocityY) {
-        this.velocityY += velocityY;
+    public void setFallingState(FallingState fallingState) {
+        this.fallingState = fallingState;
     }
 
-    public void setX(float x) {
-        this.x = x;
+    public enum BlockType {
+        EMPTY, RED, GREEN, BLUE, YELLOW;
     }
 
-    public void setY(float y) {
-        this.y = y;
-    }
-
-    public static float getBLOCK_HEIGHT() {
-        return BLOCK_HEIGHT;
-    }
-
-    public static float getBLOCK_WIDTH() {
-        return BLOCK_WIDTH;
+    public enum FallingState {
+        FALLING, GROUNDED;
     }
 }

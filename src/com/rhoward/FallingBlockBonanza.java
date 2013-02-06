@@ -17,6 +17,10 @@ public class FallingBlockBonanza {
     private static final String TITLE = "FALLING BLOCK BONANZA";
     private int delta = 0;
 
+    // for counting domino movement
+    private final int TICK_TIME = 300;
+    private int tickCounter = 0;
+
     // timing
     private static final int FPS = 60;
     private long lastFrame;
@@ -25,8 +29,10 @@ public class FallingBlockBonanza {
 
     // entities
     private List<Block> blocks;
-    private List<BlockDomino> blockDominos = new ArrayList<BlockDomino>(16);
+    private List<Domino> dominos = new ArrayList<Domino>(16);
     private Gravity gravity;
+
+    private Pit pit;
 
     public FallingBlockBonanza() {
         initDisplay();
@@ -50,19 +56,21 @@ public class FallingBlockBonanza {
     }
 
     private void logic(int delta) {
-        this.gravity.stepGravity(delta);
 
-        for (BlockDomino domino : blockDominos) {
-            domino.update(delta);
+        tickCounter += delta;
+
+        if (tickCounter >= TICK_TIME) {
+            tickCounter = 0;
+            pit.stepGravity();
         }
+
     }
 
     private void render() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        for (BlockDomino domino : blockDominos) {
-            domino.draw();
-        }
+        pit.draw();
+
     }
 
     private void input(int delta) {
@@ -84,11 +92,11 @@ public class FallingBlockBonanza {
     }
 
     private void initWorld() {
-        gravity = new Gravity(blockDominos);
+        this.pit = new Pit();
     }
 
     private void initEntities() {
-        this.blockDominos.add(new BlockDomino(Block.BlockType.BLUE, 100, 100));
+        pit.add(new BlockDomino(Block.BlockType.BLUE, 0, 0));
     }
 
     private void initOpenGL() {
