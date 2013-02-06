@@ -9,11 +9,6 @@ public class BlockDomino extends Domino {
     }
 
     @Override
-    public void rotate(RotateState rotation) {
-        this.rotateState = rotation;
-    }
-
-    @Override
     public Domino translate(int x, int y) {
         Domino translated = new BlockDomino(this.type, this.x + x, this.y + y);
         return translated;
