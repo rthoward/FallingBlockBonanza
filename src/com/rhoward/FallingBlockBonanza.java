@@ -96,7 +96,8 @@ public class FallingBlockBonanza {
     }
 
     private void initEntities() {
-        pit.add(new BlockDomino(Block.BlockType.BLUE, 0, 0));
+        //pit.add(new BlockDomino(Block.BlockType.BLUE, 0, 0));
+        pit.add(new LDomino(Block.BlockType.GREEN, 0, 0));
     }
 
     private void initOpenGL() {
