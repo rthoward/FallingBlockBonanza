@@ -60,7 +60,6 @@ public class FallingBlockBonanza {
         tickCounter += delta;
 
         if (tickCounter >= TICK_TIME) {
-            System.out.println("tick counter: " + tickCounter);
             tickCounter = 0;
             pit.stepGravity();
         }
