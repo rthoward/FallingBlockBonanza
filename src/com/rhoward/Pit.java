@@ -62,6 +62,7 @@ public class Pit {
         }
         else {
             // TODO: domino has come to a resting state. implement hook?
+            this.eventListener.onEvent(EventListener.EventType.DOMINO_FELL);
         }
         updatePit();
     }
