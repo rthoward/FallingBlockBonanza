@@ -16,7 +16,7 @@ public class BlockDomino extends Domino {
 
     @Override
     public String getGrid() {
-        String grid = new String();
+        String grid;
 
         switch (rotateState) {
             case NORMAL:
@@ -31,6 +31,9 @@ public class BlockDomino extends Domino {
                 break;
             case RIGHT:
                 grid = "110,110";
+                break;
+            default:
+                grid = "";
                 break;
         }
 

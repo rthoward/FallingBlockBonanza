@@ -14,7 +14,7 @@ public class LDomino extends Domino {
 
     @Override
     public String getGrid() {
-        String grid = new String();
+        String grid;
 
         switch (rotateState) {
             case NORMAL:
@@ -28,6 +28,9 @@ public class LDomino extends Domino {
                 break;
             case RIGHT:
                 grid = "111,001";
+                break;
+            default:
+                grid = "";
                 break;
         }
 
