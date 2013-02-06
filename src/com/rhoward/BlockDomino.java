@@ -9,6 +9,17 @@ public class BlockDomino extends Domino {
     }
 
     @Override
+    public void rotate(RotateState rotation) {
+        this.rotateState = rotation;
+    }
+
+    @Override
+    public Domino translate(int x, int y) {
+        Domino translated = new BlockDomino(this.type, this.x + x, this.y + y);
+        return translated;
+    }
+
+    @Override
     public String getGrid() {
         String grid = new String();
 
@@ -29,5 +40,15 @@ public class BlockDomino extends Domino {
         }
 
         return grid;
+    }
+
+    @Override
+    public int getHeight() {
+        return 2;
+    }
+
+    @Override
+    public int getWidth() {
+        return 2;
     }
 }
