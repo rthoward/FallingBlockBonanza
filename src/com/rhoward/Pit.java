@@ -12,7 +12,7 @@ public class Pit {
     private int HEIGHT = 20;
     private float blockSize = Block.getBlockSize();
     private Block[][] pit = new Block[WIDTH][HEIGHT];
-    private List<Domino> dominoList = new ArrayList<Domino>(16);
+    private Domino domino;
 
     public Pit() {
         for (int x = 0; x < WIDTH; x++) {
@@ -24,7 +24,7 @@ public class Pit {
 
     public void add(Domino domino) {
         if (canFit(domino)) {
-            this.dominoList.add(domino);
+            this.domino = domino;
             updatePit();
         }
 
@@ -49,32 +49,24 @@ public class Pit {
 
     public void stepGravity() {
         clear();
+        Domino newState = this.domino.translate(0, 1);
 
-    // TODO: need to move all blocks, not just dominos
-//        for (int x = 0; x < WIDTH; x++) {
-//            for (int y = 0; y < HEIGHT; y++) {
-//                if (pit[x][y].getFallingState() == Block.FallingState.FALLING) {
-//
-//                }
-//            }
-//        }
-
-        for (Domino domino : dominoList) {
-            domino.setY(domino.getY() + 1);
+        if ((newState.getHeight() < HEIGHT - 1) && canFit(newState)) {
+            this.domino = newState;
         }
-
+        else {
+            // TODO: domino has come to a resting state. implement hook?
+        }
         updatePit();
     }
 
     private void updatePit() {
         List<Coordinate> currentDominoCoordinates;
 
-        for (Domino domino : dominoList) {
-            currentDominoCoordinates = calculateCellsDisplaced(domino);
+        currentDominoCoordinates = calculateCellsDisplaced(domino);
 
-            for (Coordinate coordinate : currentDominoCoordinates) {
-                this.pit[coordinate.getX()][coordinate.getY()].setType(domino.getType());
-            }
+        for (Coordinate coordinate : currentDominoCoordinates) {
+            this.pit[coordinate.getX()][coordinate.getY()].setType(domino.getType());
         }
     }
 
@@ -112,10 +104,16 @@ public class Pit {
     }
 
     private boolean isEmpty(int x, int y) {
-        return pit[x][y].getType() == Block.BlockType.EMPTY;
+        return !((x >= WIDTH) || (y >= HEIGHT)) && pit[x][y].getType() == Block.BlockType.EMPTY;
     }
 
+    // returns true if the domino collides with any block in the pit
+    public boolean collides(Domino domino) {
 
+
+
+        return false;
+    }
 
 
     private class Coordinate {
