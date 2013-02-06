@@ -14,12 +14,18 @@ public class Pit {
     private Block[][] pit = new Block[WIDTH][HEIGHT];
     private Domino domino;
 
+    EventListener eventListener;
+
     public Pit() {
         for (int x = 0; x < WIDTH; x++) {
             for (int y = 0; y < HEIGHT; y++) {
                 pit[x][y] = new Block(Block.BlockType.EMPTY);
             }
         }
+    }
+
+    public void setEventListener(EventListener listener) {
+        this.eventListener = listener;
     }
 
     public void add(Domino domino) {
@@ -107,14 +113,9 @@ public class Pit {
         return !((x >= WIDTH) || (y >= HEIGHT)) && pit[x][y].getType() == Block.BlockType.EMPTY;
     }
 
-    // returns true if the domino collides with any block in the pit
-    public boolean collides(Domino domino) {
-
-
-
-        return false;
+    private void sendEvent(EventListener.EventType eventType) {
+        this.eventListener.onEvent(eventType);
     }
-
 
     private class Coordinate {
 

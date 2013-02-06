@@ -9,7 +9,7 @@ import org.lwjgl.opengl.DisplayMode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FallingBlockBonanza {
+public class FallingBlockBonanza implements EventListener{
 
     // window attributes
     public static final int WIDTH = 640;
@@ -24,6 +24,7 @@ public class FallingBlockBonanza {
     // timing
     private static final int FPS = 60;
     private long lastFrame;
+    private boolean newPiece = false;
 
     private boolean isRunning = true;
 
@@ -64,6 +65,8 @@ public class FallingBlockBonanza {
             pit.stepGravity();
         }
 
+
+
     }
 
     private void render() {
@@ -97,7 +100,8 @@ public class FallingBlockBonanza {
 
     private void initEntities() {
         //pit.add(new BlockDomino(Block.BlockType.BLUE, 0, 0));
-        pit.add(new LDomino(Block.BlockType.GREEN, 0, 0));
+        //pit.add(new LDomino(Block.BlockType.GREEN, 0, 0));
+        pit.add(new ZDomino(Block.BlockType.RED, 0, 0));
     }
 
     private void initOpenGL() {
@@ -121,5 +125,10 @@ public class FallingBlockBonanza {
 
     public static void main(String[] args) {
         FallingBlockBonanza fbb = new FallingBlockBonanza();
+    }
+
+    @Override
+    public void onEvent(EventType eventType) {
+        newPiece = true;
     }
 }
