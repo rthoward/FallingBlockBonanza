@@ -54,11 +54,13 @@ public class Pit {
     }
 
     public void stepGravity() {
-        clear();
+
+        clearDomino();
+
         Domino newState = this.domino.translate(0, 1);
 
         if ((newState.getHeight() < HEIGHT - 1) && canFit(newState)) {
-            this.domino = newState;
+            moveDomino(newState);
         }
         else {
             // TODO: domino has come to a resting state. implement hook?
@@ -86,6 +88,19 @@ public class Pit {
         }
 
         return true;
+    }
+
+    private void moveDomino(Domino newState) {
+
+       clearDomino();
+       this.domino = newState;
+    }
+
+    private void clearDomino() {
+        List<Coordinate> currentCoordinates = calculateCellsDisplaced(this.domino);
+
+        for (Coordinate coord : currentCoordinates)
+            pit[coord.getX()][coord.getY()].setType(Block.BlockType.EMPTY);
     }
 
     private List<Coordinate> calculateCellsDisplaced(Domino domino) {
