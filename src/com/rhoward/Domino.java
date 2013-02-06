@@ -32,6 +32,11 @@ public abstract class Domino {
         return type;
     }
 
+    public abstract void rotate(RotateState rotation);
+
+    public Domino translate(int x, int y) {
+        return null;
+    }
     public abstract String getGrid();
 
     public void setX(int x) {
@@ -41,4 +46,8 @@ public abstract class Domino {
     public void setY(int y) {
         this.y = y;
     }
+
+    public abstract int getHeight();
+
+    public abstract int getWidth();
 }
