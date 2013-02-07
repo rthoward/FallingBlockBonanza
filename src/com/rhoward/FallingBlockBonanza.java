@@ -140,6 +140,7 @@ public class FallingBlockBonanza implements EventListener{
         switch (eventType) {
             case DOMINO_FELL:
                 newPiece = true;
+                this.pit.checkLines();
                 break;
             case PLAYER_LOST:
                 // end the game
