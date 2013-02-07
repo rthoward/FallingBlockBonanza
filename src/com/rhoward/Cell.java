@@ -9,6 +9,7 @@ public class Cell {
     public Cell(int x, int y, Block block) {
         this.x = x;
         this.y = y;
+        this.block = block;
     }
 
     public boolean equals(Cell other) {
