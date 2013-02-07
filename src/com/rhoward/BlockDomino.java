@@ -15,6 +15,15 @@ public class BlockDomino extends Domino {
     }
 
     @Override
+    public Domino rotate() {
+        BlockDomino newState = new BlockDomino(this.type, this.x, this.y);
+        newState.rotateState = this.rotateState;
+        newState.rotateState = newState.nextRotation();
+
+        return newState;
+    }
+
+    @Override
     public String getGrid() {
         String grid;
 

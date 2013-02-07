@@ -7,8 +7,18 @@ public class LDomino extends Domino {
     }
 
     @Override
+    public Domino rotate() {
+        LDomino newState = new LDomino(this.type, this.x, this.y);
+        newState.rotateState = this.rotateState;
+        newState.rotateState = newState.nextRotation();
+
+        return newState;
+    }
+
+    @Override
     public Domino translate(int x, int y) {
         LDomino translated = new LDomino(this.type, this.x + x, this.y + y);
+        translated.rotateState = this.rotateState;
         return translated;
     }
 
@@ -39,7 +49,7 @@ public class LDomino extends Domino {
 
     @Override
     public int getHeight() {
-        if ( (this.rotateState == RotateState.NORMAL) || (this.rotateState == RotateState.DOWN))
+        if ((this.rotateState == RotateState.NORMAL) || (this.rotateState == RotateState.DOWN))
             return 3;
         else
             return 2;
@@ -47,7 +57,7 @@ public class LDomino extends Domino {
 
     @Override
     public int getWidth() {
-        if ( (this.rotateState == RotateState.NORMAL) || (this.rotateState == RotateState.DOWN))
+        if ((this.rotateState == RotateState.NORMAL) || (this.rotateState == RotateState.DOWN))
             return 2;
         else
             return 3;

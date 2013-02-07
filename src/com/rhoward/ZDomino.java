@@ -9,7 +9,17 @@ public class ZDomino extends Domino {
     @Override
     public Domino translate(int x, int y) {
         ZDomino translated = new ZDomino(this.type, this.x + x, this.y + y);
+        translated.rotateState = this.rotateState;
         return translated;
+    }
+
+    @Override
+    public Domino rotate() {
+        ZDomino newState = new ZDomino(this.type, this.x, this.y);
+        newState.rotateState = this.rotateState;
+        newState.rotateState = newState.nextRotation();
+
+        return newState;
     }
 
     @Override
@@ -39,7 +49,7 @@ public class ZDomino extends Domino {
 
     @Override
     public int getHeight() {
-        if ( (this.rotateState == RotateState.NORMAL) || (this.rotateState == RotateState.DOWN) )
+        if ((this.rotateState == RotateState.NORMAL) || (this.rotateState == RotateState.DOWN))
             return 2;
         else
             return 3;
@@ -47,7 +57,7 @@ public class ZDomino extends Domino {
 
     @Override
     public int getWidth() {
-        if ( (this.rotateState == RotateState.NORMAL) || (this.rotateState == RotateState.DOWN))
+        if ((this.rotateState == RotateState.NORMAL) || (this.rotateState == RotateState.DOWN))
             return 3;
         else return 2;
     }

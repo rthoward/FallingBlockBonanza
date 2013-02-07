@@ -32,9 +32,7 @@ public abstract class Domino {
         return type;
     }
 
-    public void rotate(RotateState rotation) {
-        this.rotateState = rotation;
-    }
+    public abstract Domino rotate();
 
     public abstract Domino translate(int x, int y);
 
@@ -51,4 +49,8 @@ public abstract class Domino {
     public abstract int getHeight();
 
     public abstract int getWidth();
+
+    protected RotateState nextRotation() {
+        return RotateState.values()[(this.rotateState.ordinal() + 1) % 4];
+    }
 }
