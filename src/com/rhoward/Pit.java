@@ -1,6 +1,5 @@
 package com.rhoward;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Pit {
@@ -55,8 +54,23 @@ public class Pit {
         return false;
     }
 
+    public boolean tryRotateDomino() {
+
+        Domino newState = this.domino.rotate();
+
+        if (canFit(newState)) {
+            deleteDomino();
+            updateDomino(newState);
+            return true;
+        }
+
+        return false;
+    }
+
     private boolean canFit(Domino domino) {
 
+        if ( (domino.getX() < 0) || (domino.getY() < 0))
+            return false;
         if ( (domino.getX() + domino.getWidth()) > WIDTH )
             return false;
         if ( (domino.getY() + domino.getHeight()) > HEIGHT)
