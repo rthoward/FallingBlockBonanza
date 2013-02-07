@@ -67,4 +67,19 @@ public class Grid {
             }
         }
     }
+
+    public void clearLine(int line ) {
+        for (int x = 0; x < this.width; x++) {
+            grid[x][line].setBlockType(Block.BlockType.EMPTY);
+        }
+
+        for (int x = 0; x < this.width; x++) {
+            for (int y = line; y >= 0; y--) {
+                if (y == 0)
+                    this.grid[x][y].setBlockType(Block.BlockType.EMPTY);
+                else
+                    this.grid[x][y].setBlockType(this.grid[x][y - 1].getBlockType());
+            }
+        }
+    }
 }
