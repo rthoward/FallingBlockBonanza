@@ -25,7 +25,11 @@ public class InputHandler {
         }
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
-            // rotate
+            this.pit.tryRotateDomino();
+        }
+
+        if ( (moveX != 0) || (moveY !=0)) {
+            this.pit.tryMoveDomino(moveX, moveY);
         }
 
 
