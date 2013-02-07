@@ -24,10 +24,13 @@ public class InputHandler {
 
         if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
             moveX++;
-            System.out.println("hit d");
         }
         else if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
             moveX--;
+        }
+
+        if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
+            moveY++;
         }
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
