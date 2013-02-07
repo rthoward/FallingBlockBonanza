@@ -80,7 +80,7 @@ public class FallingBlockBonanza implements EventListener{
     }
 
     private void input(int delta) {
-        this.inputHandler.processInput();
+        this.inputHandler.processInput(delta);
     }
 
     private void initDisplay() {
