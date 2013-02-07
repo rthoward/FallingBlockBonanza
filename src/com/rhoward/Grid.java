@@ -13,7 +13,8 @@ public class Grid {
     public Grid(int width, int height) {
         this.width = width;
         this.height = height;
-        this.grid = new Cell[height][width];
+        this.grid = new Cell[width][height];
+        initialize();
     }
 
     public Cell getCell(int x, int y) {
@@ -51,7 +52,7 @@ public class Grid {
         return displacedList;
     }
 
-    public void draw(int posX, int posY) {
+    public void draw(float posX, float posY) {
         for (int x = 0; x < this.width; x++) {
             for (int y = 0; y < this.height; y++) {
                 grid[x][y].getBlock().draw( (x * blockSize) + posX, (y * blockSize) + posY);
