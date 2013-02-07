@@ -25,11 +25,42 @@ public class Pit {
     }
 
     public void add(Domino domino) {
-        if (canFit(domino))
-            this.domino = domino;
+
+        if (this.domino == null) {
+            updateDomino(domino);
+        }
+        else if (canFit(domino))
+            updateDomino(domino);
+    }
+
+    public void stepGravity() {
+        if (!tryMoveDomino(0, 1)) {
+            this.eventListener.onEvent(EventListener.EventType.DOMINO_FELL);
+        }
+    }
+
+    public void draw() {
+
+        this.grid.draw(this.X, this.Y);
+    }
+
+    public boolean tryMoveDomino(int x, int y) {
+        Domino newState = this.domino.translate(x, y);
+        if (canFit(newState)) {
+            deleteDomino();
+            updateDomino(newState);
+            return true;
+        }
+
+        return false;
     }
 
     private boolean canFit(Domino domino) {
+
+        if ( (domino.getX() + domino.getWidth()) > WIDTH )
+            return false;
+        if ( (domino.getY() + domino.getHeight()) > HEIGHT)
+            return false;
 
         List<Cell> currentDominoDisplaced = this.grid.calculateCellsDisplaced(this.domino);
         List<Cell> newDominoDisplaced = this.grid.calculateCellsDisplaced(domino);
@@ -55,6 +86,24 @@ public class Pit {
         }
 
         return true;
+    }
+
+    private void updateDomino(Domino newState) {
+        List<Cell> newDominoCells;
+        newDominoCells = this.grid.calculateCellsDisplaced(newState);
+
+        for (Cell cell : newDominoCells)
+            cell.setBlockType(newState.getType());
+
+        this.domino = newState;
+    }
+
+    private void deleteDomino() {
+        List<Cell> oldDominoCells;
+        oldDominoCells = this.grid.calculateCellsDisplaced(this.domino);
+
+        for (Cell cell : oldDominoCells)
+            cell.setBlockType(Block.BlockType.EMPTY);
     }
 
 
