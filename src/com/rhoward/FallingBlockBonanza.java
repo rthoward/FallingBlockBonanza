@@ -31,10 +31,10 @@ public class FallingBlockBonanza implements EventListener{
     // entities
     private List<Block> blocks;
     private List<Domino> dominos = new ArrayList<Domino>(16);
-    private Gravity gravity;
 
     private Pit pit;
     private DominoFactory dominoFactory;
+    private InputHandler inputHandler;
 
     public FallingBlockBonanza() {
         initDisplay();
@@ -80,7 +80,7 @@ public class FallingBlockBonanza implements EventListener{
     }
 
     private void input(int delta) {
-
+        this.inputHandler.processInput();
     }
 
     private void initDisplay() {
@@ -100,6 +100,7 @@ public class FallingBlockBonanza implements EventListener{
     private void initWorld() {
         this.pit = new Pit();
         this.pit.setEventListener(this);
+        this.inputHandler = new InputHandler(this.pit);
     }
 
     private void initEntities() {
@@ -136,6 +137,13 @@ public class FallingBlockBonanza implements EventListener{
 
     @Override
     public void onEvent(EventType eventType) {
-        newPiece = true;
+        switch (eventType) {
+            case DOMINO_FELL:
+                newPiece = true;
+                break;
+            case PLAYER_LOST:
+                // end the game
+                break;
+        }
     }
 }
