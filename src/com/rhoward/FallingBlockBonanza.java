@@ -35,6 +35,7 @@ public class FallingBlockBonanza implements EventListener{
     private Pit pit;
     private DominoFactory dominoFactory;
     private InputHandler inputHandler;
+    private ScoreEntity scoreHandler;
 
     public FallingBlockBonanza() {
         initDisplay();
@@ -76,6 +77,7 @@ public class FallingBlockBonanza implements EventListener{
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         pit.draw();
+        scoreHandler.draw();
 
     }
 
@@ -101,6 +103,9 @@ public class FallingBlockBonanza implements EventListener{
         this.pit = new Pit();
         this.pit.setEventListener(this);
         this.inputHandler = new InputHandler(this.pit);
+        this.scoreHandler = new ScoreEntity(400, 100);
+
+        this.scoreHandler.setScore(123);
     }
 
     private void initEntities() {
