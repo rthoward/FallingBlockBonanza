@@ -30,14 +30,14 @@ public class LDomino extends Domino {
             case NORMAL:
                 grid = "10,10,11";
                 break;
+            case RIGHT:
+                grid = "111,100";
+                break;
             case DOWN:
                 grid = "11,01,01";
                 break;
             case LEFT:
                 grid = "001,111";
-                break;
-            case RIGHT:
-                grid = "111,001";
                 break;
             default:
                 grid = "";
