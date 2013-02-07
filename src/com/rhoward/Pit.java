@@ -120,7 +120,21 @@ public class Pit {
             cell.setBlockType(Block.BlockType.EMPTY);
     }
 
+    public void checkLines() {
+        for (int y = 0; y < this.HEIGHT; y++) {
+            if (isLineFull(y)) {
+                System.out.println("line " + y + "is full");
+                this.grid.clearLine(y);
+            }
+        }
+    }
 
+    private boolean isLineFull(int line) {
+        for (int x = 0; x < this.WIDTH; x++) {
+            if (this.grid.getCell(x, line).isEmpty())
+                return false;
+        }
 
-
+        return true;
+    }
 }
