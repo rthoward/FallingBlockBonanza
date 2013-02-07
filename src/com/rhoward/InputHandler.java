@@ -24,28 +24,10 @@ public class InputHandler {
             moveX--;
         }
 
-//        if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-//            moveY--;
-//        }
-//        else if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-//            moveY++;
-//        }
-
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
             // rotate
         }
 
-        // if move was requested, try to move
-        if ( (moveX != 0) || (moveY != 0)) {
-            if (this.pit.canMove(moveX, moveY))
-                this.pit.moveDomino(moveX, moveY);
-            else {
-                System.out.println("can't move");
-            }
-        }
-        else {
-            System.out.println("no move registered");
-        }
 
     }
 }
