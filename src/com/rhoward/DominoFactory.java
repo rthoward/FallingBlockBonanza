@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class DominoFactory {
 
-    private final int NUM_PIECES = 3;
+    private final int NUM_PIECES = 4;
     private final int NUM_COLORS = 4;
 
     private int startx, starty;
@@ -49,6 +49,9 @@ public class DominoFactory {
                 break;
             case 3:
                 newDomino = new ZDomino(newType, startx, starty);
+                break;
+            case 4:
+                newDomino = new IDomino(newType, startx, starty);
                 break;
             default:
                 newDomino = null;
