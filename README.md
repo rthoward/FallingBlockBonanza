@@ -6,4 +6,4 @@ A familiar game of descending quadrilaterals, written by me as my first full gam
 License
 -------
 
-Released under the {MIT License}[http://www.opensource.org/licenses/MIT].
+Released under the [MIT License](http://www.opensource.org/licenses/MIT).
