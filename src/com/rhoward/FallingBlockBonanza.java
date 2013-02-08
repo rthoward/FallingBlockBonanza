@@ -28,6 +28,7 @@ public class FallingBlockBonanza implements EventListener{
 
     private boolean isRunning = true;
     private boolean paused = false;
+    private boolean lost = false;
 
     // entities
     private List<Block> blocks;
@@ -60,6 +61,11 @@ public class FallingBlockBonanza implements EventListener{
     }
 
     private void logic(int delta) {
+
+        if (this.lost) {
+            System.out.println("you lost!");
+            return;
+        }
 
         if (this.paused)
             return;
@@ -152,7 +158,7 @@ public class FallingBlockBonanza implements EventListener{
                 this.pit.checkLines();
                 break;
             case PLAYER_LOST:
-                // end the game
+                this.lost = true;
                 break;
             case LINE_CLEARED:
                 this.scoreHandler.incrementScore(100);
