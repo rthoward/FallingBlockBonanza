@@ -30,6 +30,8 @@ public class Pit {
         }
         else if (canFit(domino))
             updateDomino(domino);
+        else
+            this.eventListener.onEvent(EventListener.EventType.PLAYER_LOST);
     }
 
     public void stepGravity() {
@@ -123,8 +125,8 @@ public class Pit {
     public void checkLines() {
         for (int y = 0; y < this.HEIGHT; y++) {
             if (isLineFull(y)) {
-                System.out.println("line " + y + "is full");
                 this.grid.clearLine(y);
+                this.eventListener.onEvent(EventListener.EventType.LINE_CLEARED);
             }
         }
     }
