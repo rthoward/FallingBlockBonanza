@@ -20,6 +20,11 @@ public class ScoreEntity {
         this.score = score;
     }
 
+    public int getScore() {
+        return this.score;
+    }
+
+
     public void incrementScore(int increment) {
         this.score += increment;
     }
@@ -46,6 +51,7 @@ public class ScoreEntity {
 
 
                 if (currentGridCell == '1') {
+                    glColor3f(255.0f, 255.0f, 152.0f);
                     glBegin(GL_QUADS);
                         glVertex2f(currentX, currentY);
                         glVertex2f(currentX + this.BLOCK_SIZE, currentY);
@@ -79,15 +85,15 @@ public class ScoreEntity {
             case '4':
                 return "101,101,111,001,001";
             case '5':
-                return "101,101,111,001,001";
+                return "111,100,111,001,111";
             case '6':
-                return "101,101,111,001,001";
+                return "111,100,111,101,111";
             case '7':
-                return "101,101,111,001,001";
+                return "111,001,001,001,001";
             case '8':
-                return "101,101,111,001,001";
+                return "111,101,111,101,111";
             case '9':
-                return "101,101,111,001,001";
+                return "111,101,111,001,001";
             default:
                 return "101,101,111,001,001";
         }
