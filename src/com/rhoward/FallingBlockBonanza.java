@@ -159,7 +159,6 @@ public class FallingBlockBonanza implements EventListener{
                 break;
             case PLAYER_LOST:
                 // TODO: lose condition triggered too early
-                this.lost = true;
                 break;
             case LINE_CLEARED:
                 this.scoreHandler.incrementScore(100);
