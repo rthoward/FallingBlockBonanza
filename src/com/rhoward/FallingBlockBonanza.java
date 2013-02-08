@@ -105,7 +105,7 @@ public class FallingBlockBonanza implements EventListener{
         this.inputHandler = new InputHandler(this.pit);
         this.scoreHandler = new ScoreEntity(400, 100);
 
-        this.scoreHandler.setScore(123);
+        this.scoreHandler.setScore(0);
     }
 
     private void initEntities() {
@@ -150,6 +150,8 @@ public class FallingBlockBonanza implements EventListener{
             case PLAYER_LOST:
                 // end the game
                 break;
+            case LINE_CLEARED:
+                this.scoreHandler.incrementScore(100);
         }
     }
 }
