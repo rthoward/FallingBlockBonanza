@@ -29,7 +29,7 @@ public class Block {
         switch (this.type) {
             case EMPTY:
                 // grey
-                red = 224.0f; green = 224.0f; blue = 224.0f;
+                red = 100.0f; green = 100.0f; blue = 100.0f;
                 break;
             case BLUE:
                 red = 0.0f; green = 128.0f; blue = 255.0f;
