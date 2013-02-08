@@ -27,6 +27,7 @@ public class FallingBlockBonanza implements EventListener{
     private boolean newPiece = false;
 
     private boolean isRunning = true;
+    private boolean paused = false;
 
     // entities
     private List<Block> blocks;
@@ -59,6 +60,9 @@ public class FallingBlockBonanza implements EventListener{
     }
 
     private void logic(int delta) {
+
+        if (this.paused)
+            return;
 
         tickCounter += delta;
 
@@ -152,6 +156,8 @@ public class FallingBlockBonanza implements EventListener{
                 break;
             case LINE_CLEARED:
                 this.scoreHandler.incrementScore(100);
+            case PAUSE:
+                this.paused = !this.paused;
         }
     }
 }
