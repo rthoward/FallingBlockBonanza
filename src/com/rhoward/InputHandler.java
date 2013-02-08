@@ -5,7 +5,7 @@ import org.lwjgl.input.Keyboard;
 public class InputHandler {
 
     private final int MOVE_TIMEOUT = 50;
-    private final int ROTATE_TIMEOUT = 100;
+    private final int ROTATE_TIMEOUT = 150;
     private final int PAUSE_TIMEOUT = 100;
 
     private Pit pit;
@@ -24,6 +24,8 @@ public class InputHandler {
         int moveX = 0;
         int moveY = 0;
 
+        // translational movement keys
+
         if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
             moveX++;
         }
@@ -35,15 +37,24 @@ public class InputHandler {
             moveY++;
         }
 
-        if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-            if (this.rotateTimer.updateCheck(delta))
-                this.pit.tryRotateDomino();
+        // other keys
+
+        while (Keyboard.next()) {
+            switch (Keyboard.getEventKey()) {
+                case Keyboard.KEY_W:
+                    if (Keyboard.getEventKeyState())
+                        this.pit.tryRotateDomino();
+                    break;
+                case Keyboard.KEY_ESCAPE:
+                    if (Keyboard.getEventKeyState())
+                        this.pit.eventListener.onEvent(EventListener.EventType.PAUSE);
+                    break;
+                default:
+
+                    break;
+            }
         }
 
-        if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
-            if (this.pauseTimer.updateCheck(delta))
-                this.pit.eventListener.onEvent(EventListener.EventType.PAUSE);
-        }
 
         if ( (moveX != 0) || (moveY !=0) ) {
             if (this.moveTimer.updateCheck(delta))
