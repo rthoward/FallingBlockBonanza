@@ -19,6 +19,8 @@ public class InputHandler {
 
     public void processInput(int delta) {
 
+        // TODO: input is laggy
+
         int moveX = 0;
         int moveY = 0;
 
