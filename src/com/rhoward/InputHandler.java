@@ -40,7 +40,6 @@ public class InputHandler {
                 this.pit.tryRotateDomino();
         }
 
-        // TODO: event buffer for more reliable capturing
         if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
             if (this.pauseTimer.updateCheck(delta))
                 this.pit.eventListener.onEvent(EventListener.EventType.PAUSE);
