@@ -3,6 +3,7 @@ package com.rhoward;
 import static org.lwjgl.opengl.GL11.*;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
+import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
@@ -57,6 +58,7 @@ public class FallingBlockBonanza implements EventListener{
             if (Display.isCloseRequested()) { isRunning = false; }
         }
 
+        AL.destroy();
         Display.destroy();
     }
 

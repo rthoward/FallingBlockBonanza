@@ -13,10 +13,12 @@ public class Pit {
     private Grid grid;
     private Domino domino;
 
-    EventListener eventListener;
+    public EventListener eventListener;
+    private SoundManager soundManager;
 
     public Pit() {
         this.grid = new Grid(WIDTH, HEIGHT);
+        this.soundManager = new SoundManager();
     }
 
     public void setEventListener(EventListener listener) {
@@ -63,6 +65,7 @@ public class Pit {
         if (canFit(newState)) {
             deleteDomino();
             updateDomino(newState);
+            this.soundManager.playSound("rotate");
             return true;
         }
 
