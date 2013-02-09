@@ -2,7 +2,7 @@ package com.rhoward;
 
 public class ActionTimer {
 
-    private int timeCounter;
+    private long timeCounter;
     private int targetTime;
 
     public ActionTimer(int timeMillis) {
@@ -10,11 +10,13 @@ public class ActionTimer {
         this.timeCounter = 0;
     }
 
-    public boolean updateCheck(int delta) {
+    public void update(int delta) {
         this.timeCounter += delta;
+    }
 
+    public boolean check() {
         if (this.timeCounter >= this.targetTime) {
-            this.timeCounter = this.timeCounter - this.targetTime;
+            this.timeCounter = 0;
             return true;
         }
 
