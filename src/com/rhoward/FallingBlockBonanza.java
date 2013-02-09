@@ -164,8 +164,10 @@ public class FallingBlockBonanza implements EventListener{
                 break;
             case LINE_CLEARED:
                 this.scoreHandler.incrementScore(100);
+                break;
             case PAUSE:
                 this.paused = !this.paused;
+                break;
         }
     }
 }
