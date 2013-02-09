@@ -32,13 +32,13 @@ public class TDomino extends Domino {
                 grid = "111,010";
                 break;
             case LEFT:
-                grid = "01,11,01";
+                grid = "10,11,10";
                 break;
             case DOWN:
                 grid = "010,111";
                 break;
             case RIGHT:
-                grid = "10,11,10";
+                grid = "01,11,01";
                 break;
             default:
                 grid = "";
