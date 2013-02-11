@@ -26,6 +26,8 @@ public class LDomino extends Domino {
     public String getGrid() {
         String grid;
 
+        // TODO: rotation grids mismatch (possibly for all dominos)
+
         switch (rotateState) {
             case NORMAL:
                 grid = "10,10,11";

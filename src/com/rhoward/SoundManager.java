@@ -19,6 +19,8 @@ public class SoundManager {
 
     private void init() {
 
+        // TODO: probably don't need openAL for these simple sound effects
+
         Audio rotate = null;
 
         try {
