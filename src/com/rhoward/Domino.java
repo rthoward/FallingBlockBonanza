@@ -5,7 +5,7 @@ import static com.rhoward.Block.BlockType;
 public abstract class Domino {
 
     public enum RotateState {
-        NORMAL, RIGHT, DOWN, LEFT;
+        NORMAL, LEFT, DOWN, RIGHT;
     }
 
     protected RotateState rotateState;
