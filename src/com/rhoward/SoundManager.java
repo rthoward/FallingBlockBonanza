@@ -1,39 +1,49 @@
 package com.rhoward;
 
-import org.newdawn.slick.openal.Audio;
-import org.newdawn.slick.openal.AudioLoader;
-import org.newdawn.slick.util.ResourceLoader;
-
-
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
 public class SoundManager {
 
-    private HashMap<String, Audio> sounds;
+    private HashMap<String, Clip> sounds;
 
     public SoundManager() {
-        this.sounds = new HashMap<String, Audio>(8);
+        this.sounds = new HashMap<String, Clip>(8);
         init();
     }
 
     private void init() {
 
-        // TODO: probably don't need openAL for these simple sound effects
-
-        Audio rotate = null;
+        Clip clip = null;
 
         try {
-            rotate = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/sounds/rotate.wav"));
+            clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(new File("res/sounds/rotate.wav")));
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        this.sounds.put("rotate", rotate);
+        this.sounds.put("rotate", clip);
     }
 
     public void playSound(String soundName) {
-        this.sounds.get(soundName).playAsSoundEffect(1.0f, 1.0f, false);
+        // TODO: clips still lag / repeat
+
+        Clip currentClip = this.sounds.get(soundName);
+
+        if (currentClip.isRunning())
+            currentClip.stop();
+        currentClip.setFramePosition(0);
+        currentClip.start();
     }
 
 }
