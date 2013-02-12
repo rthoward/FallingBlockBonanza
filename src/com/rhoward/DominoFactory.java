@@ -40,6 +40,8 @@ public class DominoFactory {
                 break;
         }
 
+        newTypeRand = 2;
+
         switch (newTypeRand) {
             case 1:
                 newDomino = new BlockDomino(newType, startx, starty);
