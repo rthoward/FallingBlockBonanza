@@ -36,8 +36,6 @@ public class SoundManager {
     }
 
     public void playSound(String soundName) {
-        // TODO: clips still lag / repeat
-
         Clip currentClip = this.sounds.get(soundName);
 
         if (currentClip.isRunning())
