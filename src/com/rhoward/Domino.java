@@ -1,5 +1,7 @@
 package com.rhoward;
 
+import java.util.List;
+
 import static com.rhoward.Block.BlockType;
 
 public abstract class Domino {
@@ -9,23 +11,24 @@ public abstract class Domino {
     }
 
     protected RotateState rotateState;
-    protected int x, y;
+    protected Coordinate center;
+
+    protected String normalShape, leftShape, downShape, rightShape;
 
     BlockType type;
 
     public Domino(BlockType type, int x, int y) {
         this.type = type;
         this.rotateState = RotateState.NORMAL;
-        this.x = x;
-        this.y = y;
+        this.center = new Coordinate(x, y);
     }
 
     public int getX() {
-        return this.x;
+        return this.center.getX();
     }
 
     public int getY() {
-        return this.y;
+        return this.center.getY();
     }
 
     public BlockType getType() {
@@ -36,14 +39,14 @@ public abstract class Domino {
 
     public abstract Domino translate(int x, int y);
 
-    public abstract String getGrid();
+    public abstract List<Coordinate> getCoordinatesDisplaced();
 
     public void setX(int x) {
-        this.x = x;
+        this.center.setX(x);
     }
 
     public void setY(int y) {
-        this.y = y;
+        this.center.setY(y);
     }
 
     public abstract int getHeight();
