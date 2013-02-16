@@ -124,7 +124,7 @@ public class FallingBlockBonanza implements EventListener{
         //pit.add(new BlockDomino(Block.BlockType.BLUE, 0, 0));
         //pit.add(new LDomino(Block.BlockType.GREEN, 0, 0));
         //pit.add(new ZDomino(Block.BlockType.RED, 0, 0));
-        this.dominoFactory = new DominoFactory(4, 0);
+        this.dominoFactory = new DominoFactory(4, 1);
 
         this.pit.add(this.dominoFactory.newDomino());
     }
