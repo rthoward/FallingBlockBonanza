@@ -42,26 +42,28 @@ public class DominoFactory {
 
         newTypeRand = 2;
 
-        switch (newTypeRand) {
-            case 1:
-                newDomino = new BlockDomino(newType, startx, starty);
-                break;
-            case 2:
-                newDomino = new LDomino(newType, startx, starty);
-                break;
-            case 3:
-                newDomino = new ZDomino(newType, startx, starty);
-                break;
-            case 4:
-                newDomino = new IDomino(newType, startx, starty);
-                break;
-            case 5:
-                newDomino = new TDomino(newType, startx, startx);
-                break;
-            default:
-                newDomino = null;
-                break;
-        }
+//        switch (newTypeRand) {
+//            case 1:
+//                //newDomino = new BlockDomino(newType, startx, starty);
+//                break;
+//            case 2:
+//                newDomino = new LDomino(newType, startx, starty);
+//                break;
+//            case 3:
+//                //newDomino = new ZDomino(newType, startx, starty);
+//                break;
+//            case 4:
+//                //newDomino = new IDomino(newType, startx, starty);
+//                break;
+//            case 5:
+//                //newDomino = new TDomino(newType, startx, startx);
+//                break;
+//            default:
+//                newDomino = null;
+//                break;
+//        }
+
+        newDomino = new LDomino(newType, startx, starty);
 
         return newDomino;
     }
