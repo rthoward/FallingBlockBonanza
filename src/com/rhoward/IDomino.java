@@ -4,11 +4,15 @@ public class IDomino extends Domino {
 
     public IDomino(Block.BlockType type, int x, int y) {
         super(type, x, y);
+        this.normalShape = "100,100,100,100";
+        this.leftShape = "000,1111,000,000";
+        this.downShape = "100,100,100,100";
+        this.rightShape = "000,1111,000,000";
     }
 
     @Override
     public Domino rotate() {
-        IDomino newState = new IDomino(this.type, this.x, this.y);
+        IDomino newState = new IDomino(this.type, this.getX(), this.getY());
         newState.rotateState = this.rotateState;
         newState.rotateState = newState.nextRotation();
 
@@ -17,35 +21,10 @@ public class IDomino extends Domino {
 
     @Override
     public Domino translate(int x, int y) {
-        IDomino translated = new IDomino(this.type, this.x + x, this.y + y);
+        IDomino translated = new IDomino(this.type, this.getX() + x, this.getY() + y);
         translated.rotateState = this.rotateState;
 
         return translated;
-    }
-
-    @Override
-    public String getGrid() {
-        String grid;
-
-        switch (rotateState) {
-            case NORMAL:
-                grid = "1,1,1,1";
-                break;
-            case RIGHT:
-                grid = "1111";
-                break;
-            case DOWN:
-                grid = "1,1,1,1";
-                break;
-            case LEFT:
-                grid = "1111";
-                break;
-            default:
-                grid = "";
-                break;
-        }
-
-        return grid;
     }
 
     @Override

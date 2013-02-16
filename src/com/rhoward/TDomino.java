@@ -1,15 +1,21 @@
 package com.rhoward;
 
+import java.util.List;
+
 public class TDomino extends Domino {
 
 
     public TDomino(Block.BlockType type, int x, int y) {
         super(type, x, y);
+        this.normalShape = "111,010,000";
+        this.leftShape = "100,110,100";
+        this.downShape = "000,010,111";
+        this.rightShape = "001,011,001";
     }
 
     @Override
     public Domino rotate() {
-        TDomino newState = new TDomino(this.type, this.x, this.y);
+        TDomino newState = new TDomino(this.type, this.center.getX(), this.center.getY());
         newState.rotateState = this.rotateState;
         newState.rotateState = newState.nextRotation();
 
@@ -18,33 +24,9 @@ public class TDomino extends Domino {
 
     @Override
     public Domino translate(int x, int y) {
-        TDomino translated = new TDomino(this.type, this.x + x, this.y + y);
+        TDomino translated = new TDomino(this.type, this.getX() + x, this.getY() + y);
         translated.rotateState = this.rotateState;
         return translated;
-    }
-
-    @Override
-    public String getGrid() {
-        String grid;
-
-        switch (this.rotateState) {
-            case NORMAL:
-                grid = "111,010";
-                break;
-            case LEFT:
-                grid = "10,11,10";
-                break;
-            case DOWN:
-                grid = "010,111";
-                break;
-            case RIGHT:
-                grid = "01,11,01";
-                break;
-            default:
-                grid = "";
-                break;
-        }
-        return grid;
     }
 
     @Override

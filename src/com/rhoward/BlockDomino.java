@@ -10,43 +10,13 @@ public class BlockDomino extends Domino {
 
     @Override
     public Domino translate(int x, int y) {
-        Domino translated = new BlockDomino(this.type, this.x + x, this.y + y);
+        Domino translated = new BlockDomino(this.type, this.getX() + x, this.getY() + y);
         return translated;
     }
 
     @Override
     public Domino rotate() {
-        BlockDomino newState = new BlockDomino(this.type, this.x, this.y);
-        newState.rotateState = this.rotateState;
-        newState.rotateState = newState.nextRotation();
-
-        return newState;
-    }
-
-    @Override
-    public String getGrid() {
-        String grid;
-
-        switch (rotateState) {
-            case NORMAL:
-                grid = "110,110";
-                break;
-            case DOWN:
-                grid = "110,110";
-
-                break;
-            case LEFT:
-                grid = "110,110";
-                break;
-            case RIGHT:
-                grid = "110,110";
-                break;
-            default:
-                grid = "";
-                break;
-        }
-
-        return grid;
+        return this;
     }
 
     @Override

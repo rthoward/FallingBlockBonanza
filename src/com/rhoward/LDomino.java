@@ -15,7 +15,7 @@ public class LDomino extends Domino {
 
     @Override
     public Domino rotate() {
-        LDomino newState = new LDomino(this.type, this.center.getX(), this.center.getY());
+        LDomino newState = new LDomino(this.type, this.getX(), this.getY());
         newState.rotateState = this.rotateState;
         newState.rotateState = newState.nextRotation();
 
@@ -24,60 +24,11 @@ public class LDomino extends Domino {
 
     @Override
     public Domino translate(int x, int y) {
-        LDomino translated = new LDomino(this.type, this.center.getX() + x, this.center.getY() + y);
+        LDomino translated = new LDomino(this.type, this.getX() + x, this.getY() + y);
         translated.rotateState = this.rotateState;
         return translated;
     }
 
-    @Override
-    public List<Coordinate> getCoordinatesDisplaced() {
-        List<Coordinate> returnCoords = new ArrayList<Coordinate>(9);
-        List<Coordinate> relativeCoords = calculateRelativeCoords();
-
-        for (Coordinate coord : relativeCoords) {
-            returnCoords.add(this.center.add(coord));
-        }
-
-        return returnCoords;
-    }
-
-    private List<Coordinate> calculateRelativeCoords() {
-        String currentShape = getShape();
-        List<Coordinate> returnCoords = new ArrayList<Coordinate>(9);
-        int x = -1;
-        int y = -1;
-
-        for (int i = 0; i < currentShape.length(); i++) {
-            if (currentShape.charAt(i) == ',') {
-                y++;
-                x = -1;
-                continue;
-            }
-
-            if (currentShape.charAt(i) == '1') {
-                returnCoords.add(new Coordinate(x, y));
-            }
-
-            x++;
-        }
-
-        return returnCoords;
-    }
-
-    private String getShape() {
-        switch (this.rotateState) {
-            case NORMAL:
-                return normalShape;
-            case LEFT:
-                return leftShape;
-            case DOWN:
-                return downShape;
-            case RIGHT:
-                return rightShape;
-            default:
-                return "";
-        }
-    }
 
     @Override
     public int getHeight() {

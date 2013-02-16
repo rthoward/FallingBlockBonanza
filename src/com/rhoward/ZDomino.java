@@ -4,47 +4,28 @@ public class ZDomino extends Domino {
 
     public ZDomino(Block.BlockType type, int x, int y) {
         super(type, x, y);
+
+        // TODO: rotations
+        this.normalShape = "000,110,011";
+        this.leftShape = "000,110,011";
+        this.downShape = "000,110,011";
+        this.rightShape = "000,110,011";
     }
 
     @Override
     public Domino translate(int x, int y) {
-        ZDomino translated = new ZDomino(this.type, this.x + x, this.y + y);
+        ZDomino translated = new ZDomino(this.type, this.getX() + x, this.getY() + y);
         translated.rotateState = this.rotateState;
         return translated;
     }
 
     @Override
     public Domino rotate() {
-        ZDomino newState = new ZDomino(this.type, this.x, this.y);
+        ZDomino newState = new ZDomino(this.type, this.getX(), this.getY());
         newState.rotateState = this.rotateState;
         newState.rotateState = newState.nextRotation();
 
         return newState;
-    }
-
-    @Override
-    public String getGrid() {
-        String grid;
-
-        switch (rotateState) {
-            case NORMAL:
-                grid = "110,011";
-                break;
-            case DOWN:
-                grid = "110,011";
-                break;
-            case LEFT:
-                grid = "01,11,10";
-                break;
-            case RIGHT:
-                grid = "01,11,10";
-                break;
-            default:
-                grid = "";
-                break;
-        }
-
-        return grid;
     }
 
     @Override
