@@ -21,42 +21,38 @@ public class Grid {
         return this.grid[x][y];
     }
 
+    public List<Cell> getCells(List<Coordinate> coordinateList) {
+        List<Cell> returnCells = new ArrayList<Cell>(9);
+
+        for (Coordinate coord : coordinateList) {
+            returnCells.add(getCell(coord.getX(), coord.getY()));
+        }
+
+        return returnCells;
+    }
+
     public boolean isEmpty(int x, int y) {
         return (this.grid[x][y].isEmpty());
     }
 
-    public List<Cell> calculateCellsDisplaced(Domino domino) {
+    public void draw(float posX, float posY, Domino domino) {
 
-        List<Cell> displacedList = new ArrayList<Cell>(8);
+        List<Coordinate> dominoCoords = domino.getCoordinatesDisplaced();
 
-        if (domino == null)
-            return displacedList;
-
-        int dominoX = domino.getX();
-        int dominoY = domino.getY();
-        String dominoGrid = domino.getGrid();
-
-        for (int i = 0; i < dominoGrid.length(); i++) {
-            if (dominoGrid.charAt(i) == ',') {
-                dominoY++;
-                dominoX = domino.getX();
-                continue;
-            }
-
-            if (dominoGrid.charAt(i) == '1')
-                displacedList.add(this.getCell(dominoX, dominoY));
-
-            dominoX++;
+        // apply domino to grid
+        for (Coordinate coord : dominoCoords) {
+            grid[coord.getX()][coord.getY()].setBlockType(domino.getType());
         }
 
-        return displacedList;
-    }
-
-    public void draw(float posX, float posY) {
         for (int x = 0; x < this.width; x++) {
             for (int y = 0; y < this.height; y++) {
                 grid[x][y].getBlock().draw( (x * blockSize) + posX, (y * blockSize) + posY);
             }
+        }
+
+        // remove domino from grid
+        for (Coordinate coord : dominoCoords) {
+            grid[coord.getX()][coord.getY()].setBlockType(Block.BlockType.EMPTY);
         }
     }
 
@@ -68,7 +64,7 @@ public class Grid {
         }
     }
 
-    public void clearLine(int line ) {
+    public void clearLine(int line) {
         for (int x = 0; x < this.width; x++) {
             grid[x][line].setBlockType(Block.BlockType.EMPTY);
         }

@@ -28,30 +28,29 @@ public class Pit {
     public void add(Domino domino) {
 
         if (this.domino == null) {
-            updateDomino(domino);
+            this.domino = domino;
         }
         else if (canFit(domino))
-            updateDomino(domino);
+            this.domino = domino;
         else
             this.eventListener.onEvent(EventListener.EventType.PLAYER_LOST);
     }
 
     public void stepGravity() {
         if (!tryMoveDomino(0, 1)) {
+            writeToGrid();
             this.eventListener.onEvent(EventListener.EventType.DOMINO_FELL);
         }
     }
 
     public void draw() {
-
-        this.grid.draw(this.X, this.Y);
+        this.grid.draw(this.X, this.Y, this.domino);
     }
 
     public boolean tryMoveDomino(int x, int y) {
         Domino newState = this.domino.translate(x, y);
         if (canFit(newState)) {
-            deleteDomino();
-            updateDomino(newState);
+            this.domino = newState;
             return true;
         }
 
@@ -63,8 +62,7 @@ public class Pit {
         Domino newState = this.domino.rotate();
 
         if (canFit(newState)) {
-            deleteDomino();
-            updateDomino(newState);
+            this.domino = newState;
             this.soundManager.playSound("rotate");
             return true;
         }
@@ -74,52 +72,30 @@ public class Pit {
 
     private boolean canFit(Domino domino) {
 
-        if ( (domino.getX() < 0) || (domino.getY() < 0))
-            return false;
-        if ( (domino.getX() + domino.getWidth()) > WIDTH )
-            return false;
-        if ( (domino.getY() + domino.getHeight()) > HEIGHT)
-            return false;
+        List<Coordinate> projectedCoordinates = domino.getCoordinatesDisplaced();
 
-        List<Cell> currentDominoDisplaced = this.grid.calculateCellsDisplaced(this.domino);
-        List<Cell> newDominoDisplaced = this.grid.calculateCellsDisplaced(domino);
-        Cell currentCell;
-
-        if (currentDominoDisplaced.isEmpty())
-            return true;
-
-        for (int x = 0; x < this.WIDTH; x++) {
-            for (int y = 0; y < this.HEIGHT; y++) {
-
-                currentCell = this.grid.getCell(x, y);
-
-                // ignore cells displaced by current domino
-                if (currentDominoDisplaced.contains(currentCell))
-                    continue;
-
-                if ( newDominoDisplaced.contains(currentCell) ) {
-                    if (!currentCell.isEmpty())
-                        return false;
-                }
-            }
+        for (Coordinate coord : projectedCoordinates) {
+            if ( (coord.getX() < 0) || (coord.getX() >= this.WIDTH))
+                return false;
+            if ( (coord.getY() < 0) || (coord.getY() >= this.HEIGHT))
+                return false;
+            if ( !this.grid.getCell(coord.getX(), coord.getY()).isEmpty() )
+                return false;
         }
 
         return true;
     }
 
-    private void updateDomino(Domino newState) {
-        List<Cell> newDominoCells;
-        newDominoCells = this.grid.calculateCellsDisplaced(newState);
+    private void writeToGrid() {
+        List<Cell> newDominoCells = this.grid.getCells(this.domino.getCoordinatesDisplaced());
 
         for (Cell cell : newDominoCells)
-            cell.setBlockType(newState.getType());
-
-        this.domino = newState;
+            cell.setBlockType(this.domino.getType());
     }
 
     private void deleteDomino() {
         List<Cell> oldDominoCells;
-        oldDominoCells = this.grid.calculateCellsDisplaced(this.domino);
+        oldDominoCells = this.grid.getCells(this.domino.getCoordinatesDisplaced());
 
         for (Cell cell : oldDominoCells)
             cell.setBlockType(Block.BlockType.EMPTY);
