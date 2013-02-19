@@ -69,6 +69,7 @@ public abstract class Domino {
         int x = -1;
         int y = -1;
 
+        // TODO: issue with null pointer exception from ZDominio
         for (int i = 0; i < currentShape.length(); i++) {
             if (currentShape.charAt(i) == ',') {
                 y++;
