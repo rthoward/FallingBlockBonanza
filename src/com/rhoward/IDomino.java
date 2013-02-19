@@ -27,21 +27,4 @@ public class IDomino extends Domino {
         return translated;
     }
 
-    @Override
-    public int getHeight() {
-        if ( (this.rotateState == RotateState.NORMAL) || (this.rotateState == RotateState.DOWN)) {
-            return 4;
-        }
-        else
-            return 1;
-    }
-
-    @Override
-    public int getWidth() {
-        if ( (this.rotateState == RotateState.NORMAL) || (this.rotateState == RotateState.DOWN)) {
-            return 1;
-        }
-        else
-            return 4;
-    }
 }

@@ -18,14 +18,4 @@ public class BlockDomino extends Domino {
     public Domino rotate() {
         return this;
     }
-
-    @Override
-    public int getHeight() {
-        return 2;
-    }
-
-    @Override
-    public int getWidth() {
-        return 2;
-    }
 }

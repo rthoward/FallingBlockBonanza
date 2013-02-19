@@ -99,10 +99,6 @@ public abstract class Domino {
         this.center.setY(y);
     }
 
-    public abstract int getHeight();
-
-    public abstract int getWidth();
-
     protected RotateState nextRotation() {
         return RotateState.values()[(this.rotateState.ordinal() + 1) % 4];
     }

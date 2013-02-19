@@ -29,19 +29,4 @@ public class TDomino extends Domino {
         return translated;
     }
 
-    @Override
-    public int getHeight() {
-        if ((this.rotateState == RotateState.NORMAL) || (this.rotateState == RotateState.DOWN))
-            return 2;
-        else
-            return 3;
-    }
-
-    @Override
-    public int getWidth() {
-        if ((this.rotateState == RotateState.NORMAL) || (this.rotateState == RotateState.DOWN))
-            return 3;
-        else
-            return 2;
-    }
 }
