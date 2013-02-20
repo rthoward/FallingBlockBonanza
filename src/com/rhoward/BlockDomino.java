@@ -6,6 +6,11 @@ public class BlockDomino extends Domino {
 
     public BlockDomino(BlockType type, int x, int y) {
         super(type, x, y);
+
+        this.normalShape = "000,011,011";
+        this.leftShape = "000,011,011";
+        this.downShape= "000,011,011";
+        this.rightShape= "000,011,011";
     }
 
     @Override
