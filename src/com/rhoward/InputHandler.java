@@ -26,14 +26,14 @@ public class InputHandler {
 
         // translational movement keys
 
-        if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
+        if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
             moveX++;
         }
-        else if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
+        else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
             moveX--;
         }
 
-        if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
+        if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
             moveY++;
         }
 
@@ -41,7 +41,7 @@ public class InputHandler {
 
         while (Keyboard.next()) {
             switch (Keyboard.getEventKey()) {
-                case Keyboard.KEY_W:
+                case Keyboard.KEY_UP:
                     if (Keyboard.getEventKeyState() && this.rotateTimer.check())
                         this.pit.tryRotateDomino();
                     break;
