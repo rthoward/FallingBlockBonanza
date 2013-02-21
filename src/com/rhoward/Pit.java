@@ -93,14 +93,6 @@ public class Pit {
             cell.setBlockType(this.domino.getType());
     }
 
-    private void deleteDomino() {
-        List<Cell> oldDominoCells;
-        oldDominoCells = this.grid.getCells(this.domino.getCoordinatesDisplaced());
-
-        for (Cell cell : oldDominoCells)
-            cell.setBlockType(Block.BlockType.EMPTY);
-    }
-
     public void checkLines() {
         for (int y = 0; y < this.HEIGHT; y++) {
             if (isLineFull(y)) {
