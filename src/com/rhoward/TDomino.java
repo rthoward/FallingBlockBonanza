@@ -8,9 +8,10 @@ public class TDomino extends Domino {
     public TDomino(Block.BlockType type, int x, int y) {
         super(type, x, y);
         this.normalShape = "111,010,000";
-        this.leftShape = "100,110,100";
+        this.rightShape = "100,110,100";
         this.downShape = "000,010,111";
-        this.rightShape = "001,011,001";
+        this.leftShape = "001,011,001";
+
     }
 
     @Override
