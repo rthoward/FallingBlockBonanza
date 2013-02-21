@@ -157,6 +157,7 @@ public class FallingBlockBonanza implements EventListener{
                 this.pit.checkLines();
                 break;
             case PLAYER_LOST:
+                this.paused = true;
                 break;
             case LINE_CLEARED:
                 this.scoreHandler.incrementScore(100);
