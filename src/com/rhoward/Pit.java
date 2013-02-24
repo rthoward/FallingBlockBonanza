@@ -97,6 +97,7 @@ public class Pit {
         for (int y = 0; y < this.HEIGHT; y++) {
             if (isLineFull(y)) {
                 this.grid.clearLine(y);
+                this.soundManager.playSound("clear_line");
                 this.eventListener.onEvent(EventListener.EventType.LINE_CLEARED);
             }
         }
