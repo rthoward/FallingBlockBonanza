@@ -76,7 +76,7 @@ public class FallingBlockBonanza implements EventListener{
 
         if (tickCounter >= TICK_TIME) {
             tickCounter = 0;
-            pit.stepGravity();
+            //pit.stepGravity();
         }
 
         if (newPiece)
@@ -121,7 +121,7 @@ public class FallingBlockBonanza implements EventListener{
     }
 
     private void initEntities() {
-        this.dominoFactory = new DominoFactory(4, 1);
+        this.dominoFactory = new DominoFactory(4, 4);
 
         this.pit.add(this.dominoFactory.newDomino());
     }
