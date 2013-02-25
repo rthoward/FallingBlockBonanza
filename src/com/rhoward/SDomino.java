@@ -9,8 +9,8 @@ public class SDomino extends Domino {
 
         this.normalShape = "000,011,110";
         this.leftShape = "010,011,001";
-        this.downShape = "011,110,000";
-        this.rightShape = "";
+        this.downShape = this.normalShape;
+        this.rightShape = this.leftShape;
     }
 
     @Override
