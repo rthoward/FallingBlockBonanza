@@ -8,8 +8,8 @@ public class ZDomino extends Domino {
         // TODO: rotations
         this.normalShape = "000,110,011";
         this.leftShape = "001,011,010";
-        this.downShape = "110,011,000";
-        this.rightShape = "010,110,100";
+        this.downShape = this.normalShape;
+        this.rightShape = this.leftShape;
     }
 
     @Override
