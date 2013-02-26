@@ -19,47 +19,26 @@ public class DominoFactory {
     public Domino newDomino() {
         Domino newDomino;
         int newTypeRand = rand.nextInt(NUM_PIECES) + 1;
-        int newColorRand = rand.nextInt(NUM_COLORS) + 1;
         Block.BlockType newType;
-
-        switch (newColorRand) {
-            case 1:
-                newType = Block.BlockType.RED;
-                break;
-            case 2:
-                newType = Block.BlockType.BLUE;
-                break;
-            case 3:
-                newType = Block.BlockType.GREEN;
-                break;
-            case 4:
-                newType = Block.BlockType.YELLOW;
-                break;
-            default:
-                newType = Block.BlockType.EMPTY;
-                break;
-        }
-
-        newTypeRand = 6;
 
         switch (newTypeRand) {
             case 1:
-                newDomino = new BlockDomino(newType, startx, starty);
+                newDomino = new BlockDomino(Block.BlockType.YELLOW, startx, starty);
                 break;
             case 2:
-                newDomino = new LDomino(newType, startx, starty);
+                newDomino = new LDomino(Block.BlockType.ORANGE, startx, starty);
                 break;
             case 3:
-                newDomino = new ZDomino(newType, startx, starty);
+                newDomino = new ZDomino(Block.BlockType.RED, startx, starty);
                 break;
             case 4:
-                newDomino = new IDomino(newType, startx, starty);
+                newDomino = new IDomino(Block.BlockType.CYAN, startx, starty);
                 break;
             case 5:
-                newDomino = new TDomino(newType, startx, starty);
+                newDomino = new TDomino(Block.BlockType.PURPLE, startx, starty);
                 break;
             case 6:
-                newDomino = new SDomino(newType, startx, starty);
+                newDomino = new SDomino(Block.BlockType.GREEN, startx, starty);
                 break;
             default:
                 newDomino = null;

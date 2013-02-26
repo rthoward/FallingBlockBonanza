@@ -43,6 +43,15 @@ public class Block {
             case YELLOW:
                 red = 255.0f; green = 255.0f; blue = 102.0f;
                 break;
+            case CYAN:
+                red = 0.0f; green = 255.0f; blue = 255.0f;
+                break;
+            case ORANGE:
+                 red = 255.0f; green = 127.0f; blue = 0.0f;
+                break;
+            case PURPLE:
+                red = 128.0f; green = 0.0f; blue = 128.0f;
+                break;
         }
 
         glColor3f(red / 255.0f, green / 255.0f, blue / 255.0f);
@@ -72,7 +81,7 @@ public class Block {
     }
 
     public enum BlockType {
-        EMPTY, RED, GREEN, BLUE, YELLOW;
+        EMPTY, RED, GREEN, BLUE, YELLOW, CYAN, ORANGE, PURPLE;
     }
 
     public enum FallingState {
