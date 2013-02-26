@@ -33,13 +33,13 @@ public class Pit {
         else if (canFit(domino))
             this.domino = domino;
         else
-            this.eventListener.onEvent(EventListener.EventType.PLAYER_LOST);
+            this.eventListener.onEvent(EventListener.EventType.PLAYER_LOST, 0);
     }
 
     public void stepGravity() {
         if (!tryMoveDomino(0, 1)) {
             writeToGrid();
-            this.eventListener.onEvent(EventListener.EventType.DOMINO_FELL);
+            this.eventListener.onEvent(EventListener.EventType.DOMINO_FELL, 0);
         }
     }
 
@@ -94,13 +94,15 @@ public class Pit {
     }
 
     public void checkLines() {
+        int linesCleared = 0;
         for (int y = 0; y < this.HEIGHT; y++) {
             if (isLineFull(y)) {
                 this.grid.clearLine(y);
                 this.soundManager.playSound("clear_line");
-                this.eventListener.onEvent(EventListener.EventType.LINE_CLEARED);
+                ++linesCleared;
             }
         }
+        this.eventListener.onEvent(EventListener.EventType.LINE_CLEARED, linesCleared);
     }
 
     private boolean isLineFull(int line) {

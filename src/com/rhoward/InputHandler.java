@@ -51,7 +51,7 @@ public class InputHandler {
                     break;
                 case Keyboard.KEY_ESCAPE:
                     if (Keyboard.getEventKeyState() && this.pauseTimer.check())
-                        this.pit.eventListener.onEvent(EventListener.EventType.PAUSE);
+                        this.pit.eventListener.onEvent(EventListener.EventType.PAUSE, 0);
                     break;
                 default:
 

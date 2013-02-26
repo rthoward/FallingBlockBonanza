@@ -6,5 +6,5 @@ public interface EventListener {
         DOMINO_FELL, PLAYER_LOST, LINE_CLEARED, PAUSE
     }
 
-    public void onEvent(EventType eventType);
+    public void onEvent(EventType eventType, int eventData);
 }

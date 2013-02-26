@@ -21,6 +21,7 @@ public class FallingBlockBonanza implements EventListener{
     // for counting domino movement
     private final int TICK_TIME = 300;
     private int tickCounter = 0;
+    private int linesCleared = 0;
 
     // timing
     private static final int FPS = 60;
@@ -150,7 +151,7 @@ public class FallingBlockBonanza implements EventListener{
     }
 
     @Override
-    public void onEvent(EventType eventType) {
+    public void onEvent(EventType eventType, int eventData) {
         switch (eventType) {
             case DOMINO_FELL:
                 newPiece = true;
@@ -161,7 +162,8 @@ public class FallingBlockBonanza implements EventListener{
                 this.paused = true;
                 break;
             case LINE_CLEARED:
-                this.scoreHandler.incrementScore(100);
+                this.scoreHandler.incrementScore(eventData * 100);
+                this.linesCleared += eventData;
                 break;
             case PAUSE:
                 this.paused = !this.paused;
