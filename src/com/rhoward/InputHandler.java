@@ -13,6 +13,7 @@ public class InputHandler {
     private ActionTimer rotateTimer;
     private ActionTimer pauseTimer;
 
+    private boolean hardDrop = false;
 
     public InputHandler(Pit pit) {
         this.pit = pit;
@@ -35,7 +36,10 @@ public class InputHandler {
 
         if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
             moveY++;
+            this.hardDrop = true;
         }
+        else
+            this.hardDrop = false;
 
         // other keys
 
@@ -62,6 +66,10 @@ public class InputHandler {
         }
 
         updateTimers(delta);
+    }
+
+    public boolean isHardDrop() {
+        return this.hardDrop;
     }
 
     private void initTimers() {
