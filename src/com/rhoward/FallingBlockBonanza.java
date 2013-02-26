@@ -32,6 +32,9 @@ public class FallingBlockBonanza implements EventListener{
     private boolean paused = false;
     private boolean lost = false;
 
+    private Domino currentDomino;
+    private Domino nextDomino;
+
     // entities
     private List<Block> blocks;
     private List<Domino> dominos = new ArrayList<Domino>(16);
@@ -75,8 +78,11 @@ public class FallingBlockBonanza implements EventListener{
             pit.stepGravity();
         }
 
-        if (newPiece)
-            this.pit.add(this.dominoFactory.newDomino());
+        if (newPiece) {
+            this.currentDomino = this.nextDomino;
+            this.pit.add(this.currentDomino);
+            this.nextDomino = this.dominoFactory.newDomino();
+        }
 
         newPiece = false;
     }
@@ -119,7 +125,9 @@ public class FallingBlockBonanza implements EventListener{
     private void initEntities() {
         this.dominoFactory = new DominoFactory(4, 1);
 
-        this.pit.add(this.dominoFactory.newDomino());
+        this.currentDomino = this.dominoFactory.newDomino();
+        this.nextDomino = this.dominoFactory.newDomino();
+        this.pit.add(this.currentDomino);
     }
 
     private void initOpenGL() {
