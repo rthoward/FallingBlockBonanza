@@ -19,7 +19,7 @@ public class FallingBlockBonanza implements EventListener{
     private int delta = 0;
 
     // for counting domino movement
-    private final int TICK_TIME = 300;
+    private int tickTime = 300;
     private int tickCounter = 0;
     private int linesCleared = 0;
 
@@ -70,7 +70,7 @@ public class FallingBlockBonanza implements EventListener{
 
         tickCounter += delta;
 
-        if (tickCounter >= TICK_TIME) {
+        if (tickCounter >= tickTime) {
             tickCounter = 0;
             pit.stepGravity();
         }
@@ -162,6 +162,8 @@ public class FallingBlockBonanza implements EventListener{
             case LINE_CLEARED:
                 this.scoreHandler.incrementScore(eventData * 100);
                 this.linesCleared += eventData;
+                this.tickTime -= (5 * eventData);
+                System.out.println("tickTime: " + this.tickTime);
                 break;
             case PAUSE:
                 this.paused = !this.paused;
