@@ -102,7 +102,12 @@ public class Pit {
                 ++linesCleared;
             }
         }
-        this.eventListener.onEvent(EventListener.EventType.LINE_CLEARED, linesCleared);
+        if (linesCleared > 0) {
+            this.eventListener.onEvent(EventListener.EventType.LINE_CLEARED, linesCleared);
+            this.grid.fillDown();
+            // TODO: refactor to avoid this weird recursion
+            checkLines();
+        }
     }
 
     private boolean isLineFull(int line) {
