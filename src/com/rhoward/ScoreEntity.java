@@ -9,6 +9,7 @@ public class ScoreEntity {
     private int score;
     private int x, y;
     private int level = 1;
+    private boolean paused = false;
 
     public ScoreEntity(int x, int y) {
         this.x = x;
@@ -24,6 +25,10 @@ public class ScoreEntity {
         this.level = level;
     }
 
+    public void setPaused(boolean paused) {
+        this.paused = paused;
+    }
+
     public int getScore() {
         return this.score;
     }
@@ -36,6 +41,9 @@ public class ScoreEntity {
     public void draw() {
         drawLine(Integer.toString(this.score), this.x, this.y);
         drawLine("LEVEL " + Integer.toString(this.level), this.x, this.y + 60);
+
+        if (this.paused)
+            drawLine("-- PAUSED --", 90, 50);
     }
 
     private void drawLine(String line, int posX, int posY) {
@@ -86,6 +94,18 @@ public class ScoreEntity {
         switch (num) {
             case ' ':
                 return "000,000,000,000,000";
+            case '-':
+                return "000,000,111,000,000";
+            case 'P':
+                return "111,101,111,100,100";
+            case 'A':
+                return "010,010,101,111,101";
+            case 'U':
+                return "101,101,101,101,111";
+            case 'S':
+                return "111,100,111,001,111";
+            case 'D':
+                return "111,101,101,101,111";
             case '0':
                 return "111,101,101,101,111";
             case '1':
