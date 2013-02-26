@@ -14,6 +14,8 @@ public class InputHandler {
     private ActionTimer pauseTimer;
 
     private boolean hardDrop = false;
+    private boolean allowMovement = true;
+    private boolean allowPause = true;
 
     public InputHandler(Pit pit) {
         this.pit = pit;
@@ -46,11 +48,11 @@ public class InputHandler {
         while (Keyboard.next()) {
             switch (Keyboard.getEventKey()) {
                 case Keyboard.KEY_UP:
-                    if (Keyboard.getEventKeyState() && this.rotateTimer.check())
+                    if (Keyboard.getEventKeyState() && this.rotateTimer.check() && this.allowMovement)
                         this.pit.tryRotateDomino();
                     break;
                 case Keyboard.KEY_ESCAPE:
-                    if (Keyboard.getEventKeyState() && this.pauseTimer.check())
+                    if (Keyboard.getEventKeyState() && this.pauseTimer.check() && this.allowPause)
                         this.pit.eventListener.onEvent(EventListener.EventType.PAUSE, 0);
                     break;
                 default:
@@ -60,7 +62,7 @@ public class InputHandler {
         }
 
 
-        if ( (moveX != 0) || (moveY !=0) ) {
+        if ( ( (moveX != 0) || (moveY !=0)) && this.allowMovement ) {
             if (this.moveTimer.check())
                 this.pit.tryMoveDomino(moveX, moveY);
         }
@@ -70,6 +72,14 @@ public class InputHandler {
 
     public boolean isHardDrop() {
         return this.hardDrop;
+    }
+
+    public void setAllowPause(boolean allow) {
+        this.allowPause = allow;
+    }
+
+    public void setAllowMovement(boolean allow) {
+        this.allowMovement = allow;
     }
 
     private void initTimers() {
