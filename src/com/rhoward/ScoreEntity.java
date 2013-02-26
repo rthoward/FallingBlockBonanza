@@ -10,6 +10,7 @@ public class ScoreEntity {
     private int x, y;
     private int level = 1;
     private boolean paused = false;
+    private boolean lost = false;
 
     public ScoreEntity(int x, int y) {
         this.x = x;
@@ -29,6 +30,10 @@ public class ScoreEntity {
         this.paused = paused;
     }
 
+    public void setLost(boolean lost) {
+        this.lost = lost;
+    }
+
     public int getScore() {
         return this.score;
     }
@@ -42,8 +47,10 @@ public class ScoreEntity {
         drawLine(Integer.toString(this.score), this.x, this.y);
         drawLine("LEVEL " + Integer.toString(this.level), this.x, this.y + 60);
 
-        if (this.paused)
+        if (this.paused && !this.lost)
             drawLine("-- PAUSED --", 90, 50);
+        if (this.lost)
+            drawLine("YOU LOSE", 90, 50);
     }
 
     private void drawLine(String line, int posX, int posY) {
@@ -105,6 +112,10 @@ public class ScoreEntity {
             case 'S':
                 return "111,100,111,001,111";
             case 'D':
+                return "111,101,101,101,111";
+            case 'Y':
+                return "101,101,010,010,010";
+            case 'O':
                 return "111,101,101,101,111";
             case '0':
                 return "111,101,101,101,111";
