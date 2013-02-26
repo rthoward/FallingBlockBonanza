@@ -6,9 +6,9 @@ import static org.lwjgl.opengl.GL11.*;
 public class ScoreEntity {
 
     private final float BLOCK_SIZE = 8;
-
     private int score;
     private int x, y;
+    private int level = 1;
 
     public ScoreEntity(int x, int y) {
         this.x = x;
@@ -18,6 +18,10 @@ public class ScoreEntity {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public int getScore() {
@@ -30,19 +34,25 @@ public class ScoreEntity {
     }
 
     public void draw() {
-        String scoreString = Integer.toString(this.score);
-        int startX = this.x;
-        int startY = this.y;
+        drawLine(Integer.toString(this.score), this.x, this.y);
+        drawLine("LEVEL " + Integer.toString(this.level), this.x, this.y + 60);
+    }
+
+    private void drawLine(String line, int posX, int posY) {
+        String drawString = line;
+        int startX = posX;
+        int startY = posY;
         int currentX = startX;
         int currentY = startY;
         String currentGrid;
         char currentGridCell;
 
-        while (scoreString.length() < 6)
-            scoreString = "0" + scoreString;
+        while (drawString.length() < 6)
+            drawString = "0" + drawString;
 
-        for (int i = 0; i < scoreString.length(); i++) {
-            currentGrid = getGrid(scoreString.charAt(i));
+        for (int i = 0; i < drawString.length(); i++) {
+
+            currentGrid = getGrid(drawString.charAt(i));
             currentX = startX;
             currentY = startY;
 
@@ -74,6 +84,8 @@ public class ScoreEntity {
 
     private String getGrid(char num) {
         switch (num) {
+            case ' ':
+                return "000,000,000,000,000";
             case '0':
                 return "111,101,101,101,111";
             case '1':
@@ -94,6 +106,12 @@ public class ScoreEntity {
                 return "111,101,111,101,111";
             case '9':
                 return "111,101,111,001,001";
+            case 'L':
+                return "100,100,100,100,111";
+            case 'E':
+                return "111,100,111,100,111";
+            case 'V':
+                return "101,101,101,010,010";
             default:
                 return "101,101,111,001,001";
         }
