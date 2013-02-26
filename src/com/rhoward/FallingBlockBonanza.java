@@ -76,7 +76,7 @@ public class FallingBlockBonanza implements EventListener{
 
         if (tickCounter >= TICK_TIME) {
             tickCounter = 0;
-            //pit.stepGravity();
+            pit.stepGravity();
         }
 
         if (newPiece)
@@ -155,6 +155,7 @@ public class FallingBlockBonanza implements EventListener{
             case DOMINO_FELL:
                 newPiece = true;
                 this.pit.checkLines();
+                this.scoreHandler.incrementScore(this.inputHandler.isHardDrop() ? 8 : 4);
                 break;
             case PLAYER_LOST:
                 this.paused = true;
