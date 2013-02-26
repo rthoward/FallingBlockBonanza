@@ -78,4 +78,14 @@ public class Grid {
             }
         }
     }
+
+    public void fillDown() {
+        for (int x = 0; x < this.width; x++) {
+            for (int y = this.height - 2; y > 0; y--) {
+                if (this.grid[x][y + 1].getBlockType() == Block.BlockType.EMPTY) {
+                    this.grid[x][y + 1].setBlockType(this.grid[x][y].getBlockType());
+                }
+            }
+        }
+    }
 }
