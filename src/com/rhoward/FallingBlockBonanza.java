@@ -65,12 +65,7 @@ public class FallingBlockBonanza implements EventListener{
 
     private void logic(int delta) {
 
-        if (this.lost) {
-            System.out.println("you lost!");
-            return;
-        }
-
-        if (this.paused)
+        if (this.paused || this.lost)
             return;
 
         tickCounter += delta;
@@ -159,7 +154,10 @@ public class FallingBlockBonanza implements EventListener{
                 this.scoreHandler.incrementScore(this.inputHandler.isHardDrop() ? 8 : 4);
                 break;
             case PLAYER_LOST:
-                this.paused = true;
+                this.lost = true;
+                this.scoreHandler.setLost(true);
+                this.inputHandler.setAllowMovement(false);
+                this.inputHandler.setAllowPause(false);
                 break;
             case LINE_CLEARED:
                 this.scoreHandler.incrementScore(eventData * 100);
@@ -168,6 +166,7 @@ public class FallingBlockBonanza implements EventListener{
             case PAUSE:
                 this.paused = !this.paused;
                 this.scoreHandler.setPaused(this.paused);
+                this.inputHandler.setAllowMovement(!this.paused);
                 break;
         }
     }
