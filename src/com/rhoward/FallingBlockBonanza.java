@@ -10,7 +10,7 @@ import org.lwjgl.opengl.DisplayMode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FallingBlockBonanza implements EventListener{
+public class FallingBlockBonanza {
 
     // window attributes
     public static final int WIDTH = 640;
@@ -21,28 +21,15 @@ public class FallingBlockBonanza implements EventListener{
     // for counting domino movement
     private int tickTime = 300;
     private int tickCounter = 0;
-    private int linesCleared = 0;
 
     // timing
     private static final int FPS = 60;
     private long lastFrame;
-    private boolean newPiece = false;
 
     private boolean isRunning = true;
-    private boolean paused = false;
-    private boolean lost = false;
-
-    private Domino currentDomino;
-    private Domino nextDomino;
-
-    // entities
-    private List<Block> blocks;
-    private List<Domino> dominos = new ArrayList<Domino>(16);
 
     private Pit pit;
     private DominoFactory dominoFactory;
-    private InputHandler inputHandler;
-    private ScoreEntity scoreHandler;
 
     public FallingBlockBonanza() {
         initDisplay();
@@ -68,8 +55,8 @@ public class FallingBlockBonanza implements EventListener{
 
     private void logic(int delta) {
 
-        if (this.paused || this.lost)
-            return;
+       if (this.pit.playerLost())
+           return;
 
         tickCounter += delta;
 
@@ -78,25 +65,16 @@ public class FallingBlockBonanza implements EventListener{
             pit.stepGravity();
         }
 
-        if (newPiece) {
-            this.currentDomino = this.nextDomino;
-            this.pit.add(this.currentDomino);
-            this.nextDomino = this.dominoFactory.newDomino();
-        }
-
-        newPiece = false;
+        this.pit.tryAddDomino(dominoFactory.newDomino());
     }
 
     private void render() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
         pit.draw();
-        scoreHandler.draw();
-
     }
 
     private void input(int delta) {
-        this.inputHandler.processInput(delta);
+        this.pit.processInput(delta);
     }
 
     private void initDisplay() {
@@ -114,20 +92,12 @@ public class FallingBlockBonanza implements EventListener{
     }
 
     private void initWorld() {
-        this.pit = new Pit();
-        this.pit.setEventListener(this);
-        this.inputHandler = new InputHandler(this.pit);
-        this.scoreHandler = new ScoreEntity(400, 100);
-
-        this.scoreHandler.setScore(0);
+        this.pit = new Pit(200, 30, 10, 20);
     }
 
     private void initEntities() {
         this.dominoFactory = new DominoFactory(4, 1);
-
-        this.currentDomino = this.dominoFactory.newDomino();
-        this.nextDomino = this.dominoFactory.newDomino();
-        this.pit.add(this.currentDomino);
+        this.pit.init(this.dominoFactory.newDomino(), this.dominoFactory.newDomino());
     }
 
     private void initOpenGL() {
@@ -153,31 +123,5 @@ public class FallingBlockBonanza implements EventListener{
         FallingBlockBonanza fbb = new FallingBlockBonanza();
     }
 
-    @Override
-    public void onEvent(EventType eventType, int eventData) {
-        switch (eventType) {
-            case DOMINO_FELL:
-                newPiece = true;
-                this.pit.checkLines();
-                this.scoreHandler.incrementScore(this.inputHandler.isHardDrop() ? 8 : 4);
-                break;
-            case PLAYER_LOST:
-                this.lost = true;
-                this.scoreHandler.setLost(true);
-                this.inputHandler.setAllowMovement(false);
-                this.inputHandler.setAllowPause(false);
-                break;
-            case LINE_CLEARED:
-                this.scoreHandler.incrementScore(eventData * 100);
-                this.linesCleared += eventData;
-                this.tickTime -= (5 * eventData);
-                System.out.println("tickTime: " + this.tickTime);
-                break;
-            case PAUSE:
-                this.paused = !this.paused;
-                this.scoreHandler.setPaused(this.paused);
-                this.inputHandler.setAllowMovement(!this.paused);
-                break;
-        }
-    }
+
 }

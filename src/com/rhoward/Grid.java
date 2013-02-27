@@ -6,9 +6,18 @@ import java.util.List;
 public class Grid {
 
     private final float blockSize = Block.getBlockSize();
-
     private Cell[][] grid;
-    private int height, width;
+    private int height;
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    private int width;
 
     public Grid(int width, int height) {
         this.width = width;

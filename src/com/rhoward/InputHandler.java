@@ -49,11 +49,11 @@ public class InputHandler {
             switch (Keyboard.getEventKey()) {
                 case Keyboard.KEY_UP:
                     if (Keyboard.getEventKeyState() && this.rotateTimer.check() && this.allowMovement)
-                        this.pit.tryRotateDomino();
+                        this.pit.tryRotate();
                     break;
                 case Keyboard.KEY_ESCAPE:
                     if (Keyboard.getEventKeyState() && this.pauseTimer.check() && this.allowPause)
-                        this.pit.eventListener.onEvent(EventListener.EventType.PAUSE, 0);
+                        this.pit.onPause();
                     break;
                 default:
 
@@ -64,7 +64,7 @@ public class InputHandler {
 
         if ( ( (moveX != 0) || (moveY !=0)) && this.allowMovement ) {
             if (this.moveTimer.check())
-                this.pit.tryMoveDomino(moveX, moveY);
+                this.pit.tryMove(moveX, moveY);
         }
 
         updateTimers(delta);
