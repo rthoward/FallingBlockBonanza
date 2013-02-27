@@ -10,9 +10,17 @@ public class LineChecker {
 
     public int checkLines() {
         int totalLinesCleared = 0;
+        int currentLinesCleared = 0;
 
-        while ( (totalLinesCleared += clearBlankLines()) > 0) {
-            this.grid.fillDown();
+        while (true) {
+            currentLinesCleared = clearBlankLines();
+
+            if (currentLinesCleared > 0) {
+                totalLinesCleared += currentLinesCleared;
+                currentLinesCleared = 0;
+            }
+            else
+                break;
         }
 
         return totalLinesCleared;
@@ -22,6 +30,7 @@ public class LineChecker {
         int linesCleared = 0;
         for (int line = 0; line < this.grid.getHeight(); line++) {
             if (isLineFull(line)) {
+                this.grid.clearLine(line);
                 this.grid.fillDown();
                 ++linesCleared;
             }
