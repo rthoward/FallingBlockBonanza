@@ -50,18 +50,19 @@ public class Pit {
             this.nextDomino = domino;
 
         if (!canFit(this.currentDomino)) {
-            System.out.println("YOU LOSE");
             this.lost = true;
+            this.scoreBoard.setLost(this.lost);
         }
     }
 
     public void stepGravity() {
-        if (!this.paused)
+        if (!this.paused && !this.lost)
             this.gravity.stepGravity();
     }
 
     public void processInput(int delta) {
-        this.inputHandler.processInput(delta);
+        if (!this.lost)
+            this.inputHandler.processInput(delta);
     }
 
     public boolean tryMove(int x, int y) {
@@ -93,9 +94,9 @@ public class Pit {
     }
 
     public void onHitBottom() {
+        writeToGrid();
         this.scoreBoard.incrementScore(this.inputHandler.isHardDrop() ? 8 : 4);
         this.scoreBoard.incrementScore(this.lineChecker.checkLines() * 100);
-        writeToGrid();
         this.currentDomino = nextDomino;
         this.nextDomino = null;
     }
