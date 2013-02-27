@@ -5,7 +5,6 @@ public class ZDomino extends Domino {
     public ZDomino(Block.BlockType type, int x, int y) {
         super(type, x, y);
 
-        // TODO: rotations
         this.normalShape = "000,110,011";
         this.leftShape = "001,011,010";
         this.downShape = this.normalShape;
