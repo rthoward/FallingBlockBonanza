@@ -18,7 +18,7 @@ public class Pit {
     private InputHandler inputHandler;
     private ActionTimer tickTimer;
 
-    Menu pauseMenu = new Menu();
+   private Menu pauseMenu;
 
     private Domino currentDomino;
     private Domino nextDomino;
@@ -35,6 +35,7 @@ public class Pit {
         this.grid = new Grid(10, 20);
         this.tickTimer = new ActionTimer(300);
         this.inputHandler = new InputHandler(this);
+        this.pauseMenu = new Menu(this);
         this.lineChecker = new LineChecker(this.grid);
         this.gravity = new Gravity(this);
         this.scoreBoard = new ScoreEntity(this.positionX + 200, this.positionY + 70);
@@ -117,12 +118,25 @@ public class Pit {
 
     public void onPause() {
         this.paused = !this.paused;
-        this.inputHandler.setAllowMovement(!paused);
-        //this.scoreBoard.setPaused(this.paused);
         if (this.paused)
             this.pauseMenu.activate();
         else
             this.pauseMenu.deactivate();
+        this.inputHandler.setAllowMovement(false);
+        //this.scoreBoard.setPaused(this.paused);
+    }
+
+    public void onUnpause() {
+        this.paused = false;
+        if (this.paused)
+            this.pauseMenu.activate();
+        else
+            this.pauseMenu.deactivate();
+        this.inputHandler.setAllowMovement(true);
+    }
+
+    public void resetScore() {
+        this.scoreBoard.setScore(0);
     }
 
     private boolean canFit(Domino domino) {

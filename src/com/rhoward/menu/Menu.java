@@ -1,5 +1,7 @@
 package com.rhoward.menu;
 
+import com.rhoward.pit.Pit;
+
 import static org.lwjgl.opengl.GL11.*;
 
 
@@ -9,6 +11,7 @@ public class Menu {
         RESUME, RESET, EXIT
     }
 
+    private Pit pit;
     private MainMenuSelection selection = MainMenuSelection.RESUME;
     StringDrawer stringDrawer = new StringDrawer(8);
     private MenuInputHandler input;
@@ -16,11 +19,14 @@ public class Menu {
     private Color defaultColor = new Color(255.0f, 255.0f, 152.0f);
     private Color selectedColor = new Color(100.0f, 0.0f, 0.0f);
 
-    public Menu() {
+    public Menu(Pit pit) {
+        this.pit = pit;
         input = new MenuInputHandler(this);
     }
 
     public void logic() {
+        if (!this.isActive)
+            return;
         this.input.processInput();
         System.out.println("selected: " + this.selection.toString());
     }
@@ -75,12 +81,28 @@ public class Menu {
             this.selection = MainMenuSelection.RESET;
     }
 
+    public void select() {
+        if (this.selection == MainMenuSelection.RESUME) {
+            this.deactivate();
+        }
+        else if (this.selection == MainMenuSelection.RESET) {
+            this.pit.clearGrid();
+            this.pit.resetScore();
+            this.deactivate();
+        }
+        else
+            this.deactivate();
+
+        this.pit.onUnpause();
+    }
 
     public void activate() {
         this.isActive = true;
+        this.input = new MenuInputHandler(this);
     }
 
     public void deactivate() {
         this.isActive = false;
+        this.input = null;
     }
 }
