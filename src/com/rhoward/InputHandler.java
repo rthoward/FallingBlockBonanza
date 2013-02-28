@@ -55,6 +55,9 @@ public class InputHandler {
                     if (Keyboard.getEventKeyState() && this.pauseTimer.check() && this.allowPause)
                         this.pit.onPause();
                     break;
+                case Keyboard.KEY_C :
+                    if (Keyboard.getEventKeyState())
+                        this.pit.clearGrid();
                 default:
 
                     break;

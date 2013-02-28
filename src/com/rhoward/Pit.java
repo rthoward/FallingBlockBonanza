@@ -121,6 +121,10 @@ public class Pit {
         return true;
     }
 
+    public void clearGrid() {
+        this.grid.clear();
+    }
+
     public boolean playerLost() {
         return this.lost;
     }
