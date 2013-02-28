@@ -73,6 +73,10 @@ public class Grid {
         }
     }
 
+    public void clear() {
+        initialize();
+    }
+
     public void clearLine(int line) {
         for (int x = 0; x < this.width; x++) {
             grid[x][line].setBlockType(Block.BlockType.EMPTY);
