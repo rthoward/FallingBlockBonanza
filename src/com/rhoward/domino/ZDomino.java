@@ -1,4 +1,6 @@
-package com.rhoward;
+package com.rhoward.domino;
+
+import com.rhoward.pit.Block;
 
 public class ZDomino extends Domino {
 

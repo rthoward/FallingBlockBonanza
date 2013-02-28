@@ -1,5 +1,8 @@
 package com.rhoward;
 
+import com.rhoward.domino.*;
+import com.rhoward.pit.Block;
+
 import java.util.Random;
 
 public class DominoFactory {

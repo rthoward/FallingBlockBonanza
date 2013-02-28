@@ -1,4 +1,4 @@
-package com.rhoward;
+package com.rhoward.pit;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;

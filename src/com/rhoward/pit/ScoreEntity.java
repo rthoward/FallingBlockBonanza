@@ -1,4 +1,4 @@
-package com.rhoward;
+package com.rhoward.pit;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -144,7 +144,7 @@ public class ScoreEntity {
             case 'V':
                 return "101,101,101,010,010";
             default:
-                return "101,101,111,001,001";
+                return "111,101,001,000,010";
         }
     }
 }

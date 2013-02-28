@@ -1,9 +1,11 @@
-package com.rhoward;
+package com.rhoward.domino;
+
+import com.rhoward.pit.Coordinate;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.rhoward.Block.BlockType;
+import static com.rhoward.pit.Block.BlockType;
 
 public abstract class Domino {
 

@@ -1,6 +1,6 @@
-package com.rhoward;
+package com.rhoward.domino;
 
-import static com.rhoward.Block.BlockType;
+import static com.rhoward.pit.Block.BlockType;
 
 public class BlockDomino extends Domino {
 

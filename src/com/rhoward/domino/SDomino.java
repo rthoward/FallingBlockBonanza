@@ -1,6 +1,6 @@
-package com.rhoward;
+package com.rhoward.domino;
 
-import com.sun.xml.internal.ws.api.server.SDDocument;
+import com.rhoward.pit.Block;
 
 public class SDomino extends Domino {
 

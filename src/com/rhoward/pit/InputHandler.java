@@ -1,4 +1,4 @@
-package com.rhoward;
+package com.rhoward.pit;
 
 import org.lwjgl.input.Keyboard;
 
@@ -17,12 +17,17 @@ public class InputHandler {
     private boolean allowMovement = true;
     private boolean allowPause = true;
 
+    private boolean enabled = true;
+
     public InputHandler(Pit pit) {
         this.pit = pit;
         initTimers();
     }
 
     public void processInput(int delta) {
+
+        if (!this.enabled)
+            return;
 
         int moveX = 0;
         int moveY = 0;
@@ -95,5 +100,13 @@ public class InputHandler {
         this.moveTimer.update(delta);
         this.rotateTimer.update(delta);
         this.pauseTimer.update(delta);
+    }
+
+    public void enable() {
+        this.enabled = true;
+    }
+
+    public void disable() {
+        this.enabled = false;
     }
 }

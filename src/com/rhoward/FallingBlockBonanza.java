@@ -1,14 +1,13 @@
 package com.rhoward;
 
 import static org.lwjgl.opengl.GL11.*;
+
+import com.rhoward.pit.Pit;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class FallingBlockBonanza {
 

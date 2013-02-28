@@ -1,4 +1,7 @@
-package com.rhoward;
+package com.rhoward.pit;
+
+import com.rhoward.domino.Domino;
+import com.rhoward.menu.Menu;
 
 import java.util.List;
 
@@ -13,6 +16,8 @@ public class Pit {
     private Gravity gravity;
     private LineChecker lineChecker;
     private InputHandler inputHandler;
+
+    Menu pauseMenu = new Menu();
 
     private Domino currentDomino;
     private Domino nextDomino;
@@ -42,6 +47,7 @@ public class Pit {
     public void draw() {
         this.grid.draw(this.positionX, this.positionY, this.currentDomino);
         this.scoreBoard.draw();
+        this.pauseMenu.draw();
     }
 
     public void tryAddDomino(Domino domino) {
@@ -58,6 +64,9 @@ public class Pit {
     public void stepGravity() {
         if (!this.paused && !this.lost)
             this.gravity.stepGravity();
+
+        if (this.paused)
+            this.pauseMenu.logic();
     }
 
     public void processInput(int delta) {
@@ -104,7 +113,11 @@ public class Pit {
     public void onPause() {
         this.paused = !this.paused;
         this.inputHandler.setAllowMovement(!paused);
-        this.scoreBoard.setPaused(this.paused);
+        //this.scoreBoard.setPaused(this.paused);
+        if (this.paused)
+            this.pauseMenu.activate();
+        else
+            this.pauseMenu.deactivate();
     }
 
     private boolean canFit(Domino domino) {

@@ -1,4 +1,4 @@
-package com.rhoward;
+package com.rhoward.pit;
 
 import static org.lwjgl.opengl.GL11.*;
 

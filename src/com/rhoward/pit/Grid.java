@@ -1,4 +1,6 @@
-package com.rhoward;
+package com.rhoward.pit;
+
+import com.rhoward.domino.Domino;
 
 import java.util.ArrayList;
 import java.util.List;

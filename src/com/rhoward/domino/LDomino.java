@@ -1,7 +1,6 @@
-package com.rhoward;
+package com.rhoward.domino;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.rhoward.pit.Block;
 
 public class LDomino extends Domino {
 
