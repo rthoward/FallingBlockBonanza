@@ -54,15 +54,10 @@ public class FallingBlockBonanza {
 
     private void logic(int delta) {
 
-       if (this.pit.playerLost())
-           return;
+        if (this.pit.playerLost())
+            return;
 
-        tickCounter += delta;
-
-        if (tickCounter >= tickTime) {
-            tickCounter = 0;
-            pit.stepGravity();
-        }
+        this.pit.logic(delta);
 
         this.pit.tryAddDomino(dominoFactory.newDomino());
     }

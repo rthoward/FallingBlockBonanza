@@ -16,6 +16,7 @@ public class Pit {
     private Gravity gravity;
     private LineChecker lineChecker;
     private InputHandler inputHandler;
+    private ActionTimer tickTimer;
 
     Menu pauseMenu = new Menu();
 
@@ -32,6 +33,7 @@ public class Pit {
         this.height = height;
 
         this.grid = new Grid(10, 20);
+        this.tickTimer = new ActionTimer(300);
         this.inputHandler = new InputHandler(this);
         this.lineChecker = new LineChecker(this.grid);
         this.gravity = new Gravity(this);
@@ -61,8 +63,11 @@ public class Pit {
         }
     }
 
-    public void stepGravity() {
-        if (!this.paused && !this.lost)
+    public void logic(int delta) {
+
+        this.tickTimer.update(delta);
+
+        if (!this.paused && !this.lost && this.tickTimer.check())
             this.gravity.stepGravity();
 
         if (this.paused)
