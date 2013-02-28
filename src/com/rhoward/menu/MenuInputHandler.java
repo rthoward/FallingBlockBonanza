@@ -22,10 +22,13 @@ public class MenuInputHandler {
                     if (Keyboard.getEventKeyState())
                         this.menu.moveDown();
                     break;
-                case Keyboard.KEY_ESCAPE :
+                case Keyboard.KEY_ESCAPE:
                     if (Keyboard.getEventKeyState())
                         this.menu.deactivate();
                     break;
+                case Keyboard.KEY_RETURN:
+                    if (Keyboard.getEventKeyState())
+                        this.menu.select();
                 default:
                     break;
             }
