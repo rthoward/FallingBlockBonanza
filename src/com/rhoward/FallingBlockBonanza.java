@@ -6,7 +6,6 @@ import com.rhoward.menu.Menu;
 import com.rhoward.pit.Pit;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
-import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
@@ -17,10 +16,6 @@ public class FallingBlockBonanza {
     public static final int HEIGHT = 480;
     private static final String TITLE = "FALLING BLOCK BONANZA";
     private int delta = 0;
-
-    // for counting domino movement
-    private int tickTime = 300;
-    private int tickCounter = 0;
 
     private GameState state = GameState.PLAYING;
 
