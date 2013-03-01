@@ -60,6 +60,7 @@ public class Pit {
         if (!canFit(this.currentDomino)) {
             this.lost = true;
             this.scoreBoard.setLost(this.lost);
+            this.stateManager.onLose();
         }
     }
 
@@ -137,6 +138,7 @@ public class Pit {
 
     public void clearGrid() {
         this.grid.clear();
+        tryAddDomino(this.currentDomino);
     }
 
     public boolean playerLost() {
