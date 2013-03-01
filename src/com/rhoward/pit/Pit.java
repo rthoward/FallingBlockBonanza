@@ -2,7 +2,6 @@ package com.rhoward.pit;
 
 import com.rhoward.StateManager;
 import com.rhoward.domino.Domino;
-import com.rhoward.menu.Menu;
 
 import java.util.List;
 
@@ -23,7 +22,6 @@ public class Pit {
     private Domino currentDomino;
     private Domino nextDomino;
 
-    private boolean paused = false;
     private boolean lost = false;
 
     public Pit(int positionX, int positionY, int width, int height, StateManager stateManager) {
@@ -139,9 +137,5 @@ public class Pit {
     public void clearGrid() {
         this.grid.clear();
         tryAddDomino(this.currentDomino);
-    }
-
-    public boolean playerLost() {
-        return this.lost;
     }
 }
