@@ -1,5 +1,6 @@
 package com.rhoward.pit;
 
+import com.rhoward.StateManager;
 import com.rhoward.domino.Domino;
 import com.rhoward.menu.Menu;
 
@@ -17,8 +18,7 @@ public class Pit {
     private LineChecker lineChecker;
     private InputHandler inputHandler;
     private ActionTimer tickTimer;
-
-   private Menu pauseMenu;
+    private StateManager stateManager;
 
     private Domino currentDomino;
     private Domino nextDomino;
@@ -26,7 +26,7 @@ public class Pit {
     private boolean paused = false;
     private boolean lost = false;
 
-    public Pit(int positionX, int positionY, int width, int height) {
+    public Pit(int positionX, int positionY, int width, int height, StateManager stateManager) {
         this.positionX = positionX;
         this.positionY = positionY;
         this.width = width;
@@ -34,8 +34,8 @@ public class Pit {
 
         this.grid = new Grid(10, 20);
         this.tickTimer = new ActionTimer(300);
+        this.stateManager = stateManager;
         this.inputHandler = new InputHandler(this);
-        this.pauseMenu = new Menu(this);
         this.lineChecker = new LineChecker(this.grid);
         this.gravity = new Gravity(this);
         this.scoreBoard = new ScoreEntity(this.positionX + 200, this.positionY + 70);
@@ -50,7 +50,6 @@ public class Pit {
     public void draw() {
         this.grid.draw(this.positionX, this.positionY, this.currentDomino);
         this.scoreBoard.draw();
-        this.pauseMenu.draw();
     }
 
     public void tryAddDomino(Domino domino) {
@@ -68,11 +67,9 @@ public class Pit {
 
         this.tickTimer.update(delta);
 
-        if (!this.paused && !this.lost && this.tickTimer.check())
+        if (this.tickTimer.check())
             this.gravity.stepGravity();
 
-        if (this.paused)
-            this.pauseMenu.logic();
     }
 
     public void processInput(int delta) {
@@ -117,22 +114,7 @@ public class Pit {
     }
 
     public void onPause() {
-        this.paused = !this.paused;
-        if (this.paused)
-            this.pauseMenu.activate();
-        else
-            this.pauseMenu.deactivate();
-        this.inputHandler.setAllowMovement(false);
-        //this.scoreBoard.setPaused(this.paused);
-    }
-
-    public void onUnpause() {
-        this.paused = false;
-        if (this.paused)
-            this.pauseMenu.activate();
-        else
-            this.pauseMenu.deactivate();
-        this.inputHandler.setAllowMovement(true);
+        this.stateManager.onPause();
     }
 
     public void resetScore() {

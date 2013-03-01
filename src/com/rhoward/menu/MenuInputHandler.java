@@ -24,7 +24,7 @@ public class MenuInputHandler {
                     break;
                 case Keyboard.KEY_ESCAPE:
                     if (Keyboard.getEventKeyState())
-                        this.menu.deactivate();
+                        this.menu.onPause();
                     break;
                 case Keyboard.KEY_RETURN:
                     if (Keyboard.getEventKeyState())

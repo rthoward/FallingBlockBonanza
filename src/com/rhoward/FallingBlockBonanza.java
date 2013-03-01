@@ -2,6 +2,7 @@ package com.rhoward;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import com.rhoward.menu.Menu;
 import com.rhoward.pit.Pit;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
@@ -21,6 +22,8 @@ public class FallingBlockBonanza {
     private int tickTime = 300;
     private int tickCounter = 0;
 
+    private GameState state = GameState.PLAYING;
+
     // timing
     private static final int FPS = 60;
     private long lastFrame;
@@ -29,6 +32,8 @@ public class FallingBlockBonanza {
 
     private Pit pit;
     private DominoFactory dominoFactory;
+    private StateManager stateManager;
+    private Menu pauseMenu;
 
     public FallingBlockBonanza() {
         initDisplay();
@@ -48,23 +53,31 @@ public class FallingBlockBonanza {
             if (Display.isCloseRequested()) { isRunning = false; }
         }
 
-        AL.destroy();
         Display.destroy();
     }
 
     private void logic(int delta) {
 
-        if (this.pit.playerLost())
+        this.state = this.stateManager.getState();
+
+        if (this.state == GameState.LOST)
             return;
-
-        this.pit.logic(delta);
-
-        this.pit.tryAddDomino(dominoFactory.newDomino());
+        else if (this.state == GameState.PLAYING) {
+            this.pit.logic(delta);
+            this.pit.tryAddDomino(dominoFactory.newDomino());
+        }
+        else if (this.state == GameState.PAUSED)
+            this.pauseMenu.logic();
     }
 
     private void render() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        pit.draw();
+
+        if (this.state != GameState.PAUSED)
+            pit.draw();
+        else
+            this.pauseMenu.draw();
+
     }
 
     private void input(int delta) {
@@ -86,7 +99,9 @@ public class FallingBlockBonanza {
     }
 
     private void initWorld() {
-        this.pit = new Pit(200, 30, 10, 20);
+        this.stateManager = new StateManager();
+        this.pit = new Pit(200, 30, 10, 20, this.stateManager);
+        this.pauseMenu = new Menu(this.pit, this.stateManager);
     }
 
     private void initEntities() {
