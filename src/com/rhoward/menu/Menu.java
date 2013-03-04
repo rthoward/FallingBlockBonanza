@@ -28,7 +28,6 @@ public class Menu {
 
     public void logic() {
         this.input.processInput();
-        System.out.println("selected: " + this.selection.toString());
     }
 
     public void draw() {
