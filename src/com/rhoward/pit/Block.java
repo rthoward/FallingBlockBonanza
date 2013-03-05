@@ -1,5 +1,7 @@
 package com.rhoward.pit;
 
+import org.newdawn.slick.opengl.Texture;
+
 import static org.lwjgl.opengl.GL11.*;
 
 public class Block {
@@ -23,44 +25,57 @@ public class Block {
     }
 
     public void draw(float x, float y) {
-        float red, green, blue;
-        red = green = blue = 0.0f;
+
+        String textureName = null;
 
         switch (this.type) {
             case EMPTY:
                 // grey
-                red = 100.0f; green = 100.0f; blue = 100.0f;
-                break;
+                glColor3f(30.0f, 30.0f, 30.0f);
+                glBegin(GL_QUADS);
+                    glVertex2f(x, y);
+                    glVertex2f(x + COLOR_SIZE, y);
+                    glVertex2f(x + COLOR_SIZE, y + COLOR_SIZE);
+                    glVertex2f(x, y + COLOR_SIZE);
+                glEnd();
+                return;
             case BLUE:
-                red = 0.0f; green = 128.0f; blue = 255.0f;
+                textureName = "blue";
                 break;
             case GREEN:
-                red = 0.0f; green = 255.0f; blue = 128.0f;
+                textureName = "green";
                 break;
             case RED:
-                red = 255.0f; green = 51.0f; blue = 51.0f;
+                textureName = "red";
                 break;
             case YELLOW:
-                red = 255.0f; green = 255.0f; blue = 102.0f;
+                textureName = "yellow";
                 break;
             case CYAN:
-                red = 0.0f; green = 255.0f; blue = 255.0f;
+                textureName = "cyan";
                 break;
             case ORANGE:
-                 red = 255.0f; green = 127.0f; blue = 0.0f;
+                textureName = "orange";
                 break;
             case PURPLE:
-                red = 128.0f; green = 0.0f; blue = 128.0f;
+                textureName = "purple";
                 break;
         }
 
-        glColor3f(red / 255.0f, green / 255.0f, blue / 255.0f);
+        Texture texture = TextureManager.getInstance().getTexture(textureName);
 
+        System.out.println("printing " + textureName);
+
+        texture.bind();
         glBegin(GL_QUADS);
-        glVertex2f(x, y);
-        glVertex2f(x + COLOR_SIZE, y);
-        glVertex2f(x + COLOR_SIZE, y + COLOR_SIZE);
-        glVertex2f(x, y + COLOR_SIZE);
+            glTexCoord2f(0, 0);
+            glVertex2f(x, y);
+            glTexCoord2f(1, 0);
+            glVertex2f(x + COLOR_SIZE, y);
+            glTexCoord2f(1, 1);
+            glVertex2f(x + COLOR_SIZE, y + COLOR_SIZE);
+            glTexCoord2f(0, 1);
+            glVertex2f(x, y + COLOR_SIZE);
         glEnd();
     }
 
